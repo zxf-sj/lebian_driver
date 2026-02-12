@@ -1,0 +1,413 @@
+page{
+  width: 100vw;
+  background-color: #eee;
+}
+.content{
+  width: 100%;
+  height: 100vh;
+}
+.dispath{
+  width: 100%;
+  height:42%;
+}
+.title{
+  font-size:34rpx;
+  font-weight: 600;
+  padding-top: 40rpx;
+  padding-left:20rpx;
+}
+.star{
+  width: 100%;
+  display: flex;
+  height: 80rpx;
+  padding-left: 20rpx;
+  align-items: center;
+}
+.input-end{
+  height: 20rpx;
+  width: 20rpx;
+  border-radius: 50%;
+  background: #fc9153;
+}
+.starName{
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+.siteNum{
+  width: 100%;
+  height: 80rpx;
+  padding-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.siteView{
+  width: 6%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+}
+.siteNumImg{
+  width: 40rpx;
+  height: 40rpx;
+}
+.snums{
+  width: 90%;
+  margin-left: 20rpx;
+}
+.time{
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  padding-left: 20rpx;
+  align-items: center;
+}
+.startimg{
+  width:6%;
+  height:80rpx;
+  display: flex;
+  align-items: center;
+}
+.sImg{
+  width: 40rpx;
+  height: 40rpx;
+}
+.startime{
+  width:37%;
+  height:80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+.jiant{
+  width:6%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  margin-left: 6rpx;
+  margin-right: 6rpx;
+}
+.jImg{
+  width: 40rpx;
+  height: 40rpx;
+}
+.endimg{
+  width: 6%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+}
+.eImg{
+  width: 40rpx;
+  height: 40rpx;
+}
+.endtime{
+  width: 37%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+.sn{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding-left: 20rpx;
+}
+.olist{
+  width:94%;
+}
+.item{
+  width: 100%;
+  background-color: #fff;
+  border-radius:20rpx;
+  margin-left:3%;
+  margin-bottom: 20rpx;
+}
+.statusView{
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  padding-top: 20rpx;
+  padding-left: 10rpx;
+  line-height: 100rpx;
+}
+.cars{
+  width:80%;
+  height: 100rpx;
+  display: flex;
+}
+.not{
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  width:250rpx;
+  white-space: normal;
+  overflow: hidden;
+  text-emphasis: emphasis;
+  text-align: center;
+}
+.not1{
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  width:150rpx;
+  white-space: normal;
+  overflow: hidden;
+  text-emphasis: emphasis;
+  text-align: center;
+}
+.not2{
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  white-space: normal;
+  overflow: hidden;
+  text-emphasis: emphasis;
+}
+.status{
+  width: 50%;
+  text-align: right;
+  margin-right:30rpx;
+}
+.nopay{
+  color:#c90505;
+  font-size: 30rpx;
+  font-weight:600;
+}
+.payed{
+  color:#0ed391;
+  font-size: 30rpx;
+  font-weight:600;
+}
+.tubiao{
+  width: 100%;
+  height: 60rpx;
+  display:flex;
+  line-height:60rpx;
+  padding-left: 20rpx;
+}
+.lianxi{
+  width:33%;
+  height:60rpx;
+  display: flex;
+  border: 4rpx solid #0ed391;
+  margin-left: 10rpx;
+}
+.phoneimg{
+  width:60rpx;
+  height:60rpx;
+  display: flex;
+  align-items: center;
+}
+.phoneImg{
+  width: 57rpx;
+  height:48rpx;
+}
+.phonetitle{
+  color:#0ed391;
+}
+.anniu{
+  width:160rpx;
+  height:60rpx;
+  margin-left: 40%;
+}
+.shou{
+  color: #fff;
+  font-size:30rpx;
+  background-color: #fc9153;
+  width:160rpx;
+  text-align: center;
+  border-radius:10rpx;
+}
+.address{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
+  padding-top: 20rpx;
+}
+.start{
+  width:40%;
+  display: flex;
+  align-items: center;
+}
+.startPinot{
+  height: 20rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #fc9153;
+}
+.sAddress{
+  width:400rpx;
+  margin-left: 10rpx;
+}
+.to{
+  width:50rpx;
+}
+.toView{
+  width:50rpx;
+  display: flex;
+  align-items: center;
+}
+.toImg{
+  width:50rpx;
+  height: 50rpx;
+}
+.end{
+  width:40%;
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+}
+.endPiont{
+  height: 20rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #0cd699;
+}
+.eAddress{
+  width:400rpx;
+  margin-left: 10rpx;
+}
+.heji{
+  width: 100%;
+  height:60rpx;
+  display: flex;
+  padding-left: 20rpx;
+  align-items: center;
+}
+.hejicount{
+  width:41%;
+  height: 60rpx;
+  font-size: 32rpx;
+  line-height: 60rpx;
+}
+.yuan{
+  height: 60rpx;
+  font-size:32rpx;
+  line-height: 60rpx;
+}
+.phones {
+  height: 60rpx;
+  font-size:32rpx;
+  line-height: 60rpx;
+  color: rgb(22, 108, 238);
+  text-decoration: underline;
+}
+.youhui{
+  width:20%;
+  height: 60rpx;
+  font-size:32rpx;
+  line-height: 60rpx;
+  margin-left: 40rpx;
+}
+.shifu{
+  width: 100%;
+  height: 60rpx;
+  margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.shifuTitle{
+  width:33%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 32rpx;
+}
+.remark{
+  width:90%;
+  padding-left: 20rpx;
+}
+.remarkView{
+  width:100%;
+  display: inline;
+  white-space:-webkit-nowrap;       /* 或者 normal，这取决于你想要的效果 */
+  overflow-wrap: break-word;
+}
+.line{
+  width: 96%;
+  margin-left: 1.5%;
+  height: 2rpx;
+  border-bottom:4rpx solid #b6b3b3;
+}
+.fei{
+  width: 100%;
+  height: 80rpx;
+  padding-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.dafei{
+  width:50%;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.dafeiinfo{
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.feiyong{
+  width: 50%;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.feiyonginfo{
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-left: 50%;
+}
+.feilist{
+  width: 100%;
+  padding-left: 20rpx;
+}
+.feiitem{
+  font-size: 28rpx;
+}
+.kong{
+  width: 100%;
+  height: 20rpx;
+}
+.chufa{
+  width: 100%;
+  height: 60rpx;
+  color: aqua;
+  padding: 20rpx 20rpx 0 20rpx;
+}
+.input-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #fff;
+}
+
+.label {
+  font-size: 32rpx;
+  width: 140rpx;
+  color: #333;
+  margin-right: 16rpx;
+  white-space: nowrap;
+}
+
+.input {
+  flex: 1;
+  height: 60rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 0 16rpx;
+  font-size: 30rpx;
+  margin-right: 16rpx;
+}
+
+.submit-btn {
+  width: 120rpx;
+  height: 60rpx;
+  font-size: 28rpx;
+  line-height: 60rpx;
+  padding: 0;
+}
+.textarea {
+  min-height: 120rpx;
+  line-height: 1.5;
+  resize: none;
+}

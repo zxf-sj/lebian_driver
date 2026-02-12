@@ -1,0 +1,119 @@
+
+page{
+  width: 100%;
+  height: 100vh;
+  background-color: #eeeaea;
+}
+
+.sectionBox{
+  width: 100%;
+  height: 240rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+}
+.head{
+  width: 35%;
+  margin-left: 40rpx;
+}
+.head_img{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  border:4rpx solid #0d8dd8;
+}
+
+.head_nick{
+  font-size: 24rpx;
+  color: #000;
+}
+.infos{
+  width: 65%;
+  position: absolute;
+  top: 0;
+  left: 35%;
+}
+.name{
+  width: 100%;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.cars{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  margin-top: 6rpx;
+}
+.pai{
+  width: 35%;
+  background-color: #0a5dbb;
+  text-align: center;
+  border-radius: 10rpx;
+  color: #fff;
+  font-size: 30rpx;
+}
+.cartype{
+  width: 60%;
+  float: right;
+  font-size: 28rpx;
+  margin-left: 6rpx;
+}
+.tel{
+  width: 100%;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.shou{
+  width:100%;
+  height:160rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+  display: flex;
+  text-align: center;
+}
+.shouitem{
+  width: 33.33%;
+}
+.xiangmu{
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-top: 20rpx;
+}
+.nums{
+  margin-top: 10rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-weight: 600;
+}
+.values{
+  color: #0d8dd8;
+  font-size:34rpx;
+}
+.banben{
+  margin-left:58%;
+}
+.loginOut{
+  width: 100%;
+  position: absolute;
+  top: 80%;
+}
+.loginOutButton{
+  width: 90%;
+  background-color: #06a0ca;
+  color: #fff;
+}
+.opp{
+  position: absolute;
+  left: 60%;
+  top: 0rpx;
+  border: 4rpx solid #0fa9e4;
+}
+.pickerView{
+  font-size: 28rpx;
+  width: 90rpx;
+  text-align: center;
+}

@@ -1,0 +1,64 @@
+<!--pages/scheduleDetail/scheduleDetail.wxml-->
+<form bindsubmit="onSubmit">
+  <!-- 展示项（只读） -->
+
+
+  <view class="form-item">
+    <text class="label">出发时间：</text>
+    <text>{{ formData.TravelTimeDate }}</text>
+  </view>
+
+  <view class="form-item">
+    <text class="label">司机：</text>
+    <text>{{ formData.DriverName }}</text>
+  </view>
+
+  <view class="form-item">
+    <text class="label">手机号：</text>
+    <text>{{ formData.DriverPhone }}</text>
+  </view>
+
+  <view class="form-item">
+    <text class="label">车牌：</text>
+    <text>{{ formData.CarName }}</text>
+  </view>
+
+  <view class="form-item">
+    <text class="label">路线：</text>
+    <text>{{ formData.PassengerLineId_Name }}</text>
+  </view>
+
+  <view class="form-item">
+    <text class="label">出行类型：</text>
+    <text>{{ formData.TravelType }}</text>
+  </view>
+
+  <!-- 填写项（可编辑） -->
+  <view class="form-item editable">
+    <text class="label">本程电费：</text>
+    <!-- disabled="{{activeTab == 'history'}}" -->
+    <input 
+      name="ElectricityBill" 
+      type="digit" 
+      disabled="true"
+      placeholder="请输入电费（元）"
+      value="{{ formData.ElectricityBill }}"
+      bindinput="onElectricityFeeInput"
+    />
+  </view>
+
+  <view class="form-item editable">
+    <text class="label">本程ETC：</text>
+    <!-- disabled="{{activeTab == 'history'}}" -->
+    <input 
+      name="ETC" 
+      type="digit" 
+      disabled="true"
+      placeholder="请输入ETC费用（元）"
+      value="{{ formData.ETC }}"
+      bindinput="onEtcFeeInput"
+    />
+  </view>
+
+  <!-- <button form-type="submit" type="primary" wx:if="{{activeTab == 'today'}}">提交</button> -->
+</form>

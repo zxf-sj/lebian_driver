@@ -1,0 +1,61 @@
+<view class="content">
+  <view class="carinfo">
+    <view class="info">
+      <view class="pai">{{infos.Name}}</view>
+      <view class="chejia">{{infos.FrameNo}}</view>
+      <view class="cheng">可乘{{infos.PersonNumber}}人</view>
+    </view>
+    <view class="detail">
+      <view class="detail1">
+        <view class="licheng">总里程 {{infos.CarLoad}}km</view>
+        <view class="chongdian">
+          <view class="chongView">
+            <image src="/assets/images/info2.png" class="chongImg"></image>
+          </view>
+          <view class="chongstatus">无</view>
+        </view>
+        <view class="dianliang">
+          <view class="dianView">
+            <image src="/assets/images/info3.png" class="dianImg"></image>
+          </view>
+          <view class="dianNums">电量:{{infos.SOC}}</view>
+        </view>
+        <view class="sudu">
+          <view class="suView">
+            <image src="/assets/images/info1.png" class="suImg"></image>
+          </view>
+          <view class="dianNums">时速:0km/h</view>
+        </view>
+      </view>
+      <view class="detail2">
+        <image src="/assets/images/carinfo_model.png" mode="" class="carImg" />
+      </view>
+    </view>
+  </view>
+  <view class="map">
+    <view class="dangqian">当前位置</view>
+    <view class="add">
+      <view class="addinfo">经度：<text>{{infos.Longitude}}</text>纬度：<text class="weidu">{{infos.Latitude}}</text></view>
+      <view class="addinfo">地址:{{infos.Address}}</view>
+    </view>
+    <view class="mapView">
+      <map id="myMap" style="width:100vw;height:30vh;" longitude="{{longitude}}" latitude="{{latitude}}"  markers="{{markers}}">
+
+      </map>
+    </view>
+  </view>
+  <view class="other">
+    <view class="otitle">其他信息</view>
+    <view class="oinfo">编号：{{infos.Code}}</view>
+    <view class="oinfo">品牌：{{infos.Brand}}</view>
+    <view class="oinfo">司机：{{infos.DriverId_Name}}</view>
+    <view class="oinfo">排量：{{infos.Displacement_Name}}</view>
+    <view class="oinfo">车辆类型：{{infos.TruckType_Name}}</view>
+    <view class="oinfo">承运公司：{{infos.CompanyId_Name}}</view>
+    <view class="oinfo">购置日期：{{infos.ProductionDate}}</view>
+    <view class="oinfo">车辆状态：{{infos.StatusId_Name}}</view>
+    <view class="oinfo">所属部门：{{infos.OrganizationId_Name}}</view>
+    <view class="oinfo">年检日期：{{infos.ExtProp3}}</view>
+    <view class="oinfo">运营归属地：{{infos.ExtProp10}}</view>
+  </view>
+</view>

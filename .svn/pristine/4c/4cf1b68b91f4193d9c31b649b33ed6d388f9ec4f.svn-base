@@ -1,0 +1,105 @@
+<view class="page">
+  <block wx:if="{{isshow==true}}">
+    <map id="myMap" style="width:{{ScreenTotalW}}rpx;height:45vh;" longitude="{{longitude}}"
+    latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" controls="{{controls}}"
+    include-points='{{points}}' show-location="true">
+    <view class="current-mylocation-box">
+      <image bindtap="getMyLocation" class="current-mylocation" src="/assets/images/location.png"></image>
+    </view>
+    <view class="fahui">
+      <image bindtap="fanhui" class="current-mylocation" src="/assets/images/fanhui.png"></image>
+    </view>
+    <view class="shuaxin" bindtap="shuaxin">
+      <image  class="shuaxinImg" src="/assets/images/shua.png"></image>
+      <view class="shuaView">刷新</view>
+    </view>
+  </map>
+  <view class="container">
+    <view class="driver">
+        <view class="head">
+          <image class="headimg" src="/assets/images/head.png"></image>
+        </view>
+        <view class="cars">
+          <view class="pai">{{dispatchInfo.CarDirId_Name}}</view>
+          <view class="xianlu">
+            <view class="point"></view>
+            <view class="xname">{{dispatchInfo.PassengerLineId_Name}}</view>
+          </view>
+          <view class="time">
+            <view class="timeicon">
+              <image src="/assets/images/starttime1.png" class="xianluImg"></image>
+            </view>
+            <text class="timeDetail">{{dispatchInfo.StartingTime}}</text>
+          </view>
+        </view>
+        <view class="status">{{dispatchInfo.FormState_Name}}</view>
+    </view>
+    <image mode="aspectFit" src="/assets/images/dizhitiao.png" class="lineimg"></image>
+  </view>
+  <wxs module="phones" src="../../utils/phones.wxs"></wxs>
+  <wxs module="wanphone" src="../../utils/wanphone.wxs"></wxs>
+  <scroll-view scroll-y="true" class='hiddenBar' lower-threshold="100" style="height:30vh"  bindscrolltolower="scrollToLower">
+    <view class="Olist" wx:for="{{orderInfo}}" wx:for-index="id"  wx:for-item="item" wx:key="index">
+
+      <view class="itemInfo">
+          <view class="userInfo">
+            <view class="userKuan" data-tel="{{wanphone.wanphone(item.PersonalIds)}}" bindtap="call">
+              乘客尾号{{phones.phones(item.PersonalIds)}}
+            </view>
+          </view>
+          <view class="Oinfo">
+              <view class="rennum">
+                <view  class="xv">姓名:{{item.Personal_Name}}</view>
+                |<view class="xv2">人数:{{item.PassengerNumber}}</view>
+                |<view class="xv1" wx:if="{{item.Note}}" bindtap="showNote" data-note="{{item.Note}}">备注</view>
+              </view>
+              <view class="star" bindtap="showPic" data-lait="{{item.IntoLatitude}}" data-long="{{item.IntoLongitude}}" data-tel="{{item.PersonalIds}}" data-address="{{item.IntoLocation}}">
+                <view class="input-end"></view>
+                <view class="starName">{{item.IntoLocation}}</view>
+              </view>
+              <view class="star" bindtap="showPic" data-lait="{{item.OffLatitude}}" data-long="{{item.OffLongitude}}" data-tel="{{item.PersonalIds}}" data-address="{{item.OffLocation}}">
+                <view class="input-str"></view>
+                <view class="starName">{{item.OffLocation}}</view>
+              </view>
+          </view>
+          <view class="caozuo">
+            <view class="daohang" bindtap="daohang" data-lati="{{item.IntoLatitude}}" data-long="{{item.IntoLongitude}}" data-address="{{item.IntoLocation}}">
+                <view class="daoKuan">
+                  <image src="/assets/images/daohang.png" class="daoImg"></image>
+                </view>
+                <view class="daoName">导航</view>
+            </view>
+            <view class="buttons">
+              <view class="xiache" wx:if="{{item.FormState=='100004-0001020003'}}" data-oid="{{item.Id}}" data-did="{{dispatchInfo.Id}}" bindtap="shangche">确认上车</view>
+              <view class="xiache" wx:if="{{item.FormState=='100004-0001020006' && dispatchInfo.FormState=='100004-0000990004'}}" data-oid="{{item.Id}}" data-did="{{dispatchInfo.Id}}" bindtap="xiache">确认下车</view>
+            </view>
+          </view>
+      </view>
+
+    </view>
+  </scroll-view>
+  <view class="bottomView">
+    <view class="wancheng">
+      <view class="movable-view" bindtap="chufa" wx:if="{{dispatchInfo.FormState=='100004-0000990002'}}">
+        确认出发--->
+      </view>
+      <view class="movable-view" bindtap="daoda" wx:if="{{dispatchInfo.FormState=='100004-0000990003'}}">
+        到达站点--->
+      </view>
+      <view class="movable-view" bindtap="huadong" wx:if="{{dispatchInfo.FormState=='100004-0000990004'}}">
+        完成订单--->
+      </view>
+    </view>
+    <view class="xiangqing">
+      <view class="xiangDetail" bindtap="goDetail" data-oid="{{dispatchInfo.Id}}">订单详情></view>
+    </view>
+  </view>
+  </block>
+  <block wx:if="{{isshow==false}}">
+    <view class="bg">
+      <image class="bg-img" src="/assets/images/no_list.png"></image>
+      <view class="bg-cont">没有进行中的派送单~</view>
+      <view class="fanbutton" bind:tap="goIndex">返回首页</view>
+    </view>
+  </block>
+</view>

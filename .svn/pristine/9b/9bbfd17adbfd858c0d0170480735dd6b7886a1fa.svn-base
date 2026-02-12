@@ -1,0 +1,100 @@
+import http from '../../utils/http';
+const app = getApp();
+Page({
+  data: {
+    orderId:"",
+    infos:{},
+    list:[],
+  },
+  onLoad(options) {
+      var orderId = options.orderId;
+      this.setData({
+        orderId:orderId
+      })
+      this.getInfos();
+  },
+  getInfos(){
+    let that = this;
+    http.getRequest("/Api/DispatchMobile/getDispatchOrderDetail?orderId="+that.data.orderId,"","", res => {
+      if(res.code==0){
+        var list = res.data.detailList;
+        list.forEach(function(items,index){
+          var str = items.PersonalIds;
+          list[index]['userList'] = str.split(",") // 按逗号分割成 ["15835800774|武英浩", "15835800774|武思亮"]
+          .map(item => {
+            const [phone, name] = item.split("|"); // 按 | 分割 phone 和 name
+            return { name, phone }; // 返回对象
+          });
+          console.log(2131,items.ArrivalTime);
+          console.log(123123,that.getNewtime(items.ArrivalTime));
+          list[index].ArrivalTime = that.getNewtime(items.ArrivalTime);
+        })
+        console.log(list);
+        that.setData({
+          infos:res.data,
+          list:list
+        })
+      }else{
+        wx.showToast({
+          title: res.msg,
+          icon:'none',
+          duration:2000
+        })
+      }
+    }, err => {
+      wx.showToast({
+        title:"出现错误请重试",
+        icon:'none',
+        duration:2000
+      })
+    })
+  },
+  getNewtime(originalDateTime){
+    var dateString = originalDateTime.replace(/-/g, '/');
+    var date = new Date(dateString);
+    // 获取年月日
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var day = String(date.getDate()).padStart(2, '0');
+    
+    // 获取小时并向下取整
+    var hour = String(date.getHours()).padStart(2, '0');
+    var nextHour = String(date.getHours() + 1).padStart(2, '0');
+    
+    // 组合成时间区间格式
+    return `${year}-${month}-${day} ${hour}:00-${nextHour}:00`;
+  },
+  callUser(e){
+    var tel = e.currentTarget.dataset.tel;
+    wx.makePhoneCall({
+      phoneNumber: tel,
+    })
+  },
+  cashPay(e){
+    var order_id = e.currentTarget.dataset.ids;
+    console.log(order_id);
+    let that = this;
+    http.getRequest("/Api/DispatchMobile/CashPay?Id="+order_id,"","", res => {
+      if(res.code==0){
+        wx.showToast({
+          title: '操作成功',
+          icon:'success',
+          duration:2000
+        })
+        that.getInfos();
+      }else{
+        wx.showToast({
+          title: res.msg,
+          icon:'none',
+          duration:2000
+        })
+      }
+    }, err => {
+      wx.showToast({
+        title:"出现错误请重试",
+        icon:'none',
+        duration:2000
+      })
+    })
+  }
+})

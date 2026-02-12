@@ -1,0 +1,11 @@
+
+var wanphone = function (tel) {
+  var arr = tel.split(',');
+  var str = arr[0];
+  var arr1 = str.split("|");
+  var nums = arr1[0];
+  return nums;
+}
+module.exports = {
+  wanphone:wanphone,
+}

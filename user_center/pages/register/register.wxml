@@ -1,0 +1,20 @@
+<view class="content">
+  <view class="forms">
+      <view class="titleArea">司机信息</view>
+      <view class="inputArea">
+        <input type="text" placeholder="姓名" class="inputDetail" placeholder-style="font-size:28rpx;color:#010101;" bindinput="bindName"/>
+      </view>
+      <view class="inputArea">
+        <input type="text" placeholder="手机号" class="inputDetail"  placeholder-style="font-size:28rpx;color:#010101;"  bindinput="bindPhone" bindblur="checkPhone"/>
+      </view>
+      <view class="inputArea">
+        <input type="text" placeholder="密码" class="inputDetail" password="true" placeholder-style="font-size:28rpx;color:#010101;"   bindinput="bindPwd"/>
+      </view>
+      <view class="inputArea">
+        <input type="text" password="true" placeholder="确认密码" class="inputDetail"  placeholder-style="font-size:28rpx;color:#010101;"  bindinput="bindPwd1"/>
+      </view>
+  </view>
+  <view class="buttonArea">
+    <button class="buttons" bindtap="register">注册</button>
+  </view>
+</view>

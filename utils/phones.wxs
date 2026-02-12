@@ -1,0 +1,12 @@
+
+var phones = function (tel) {
+  var arr = tel.split(',');
+  var str = arr[0];
+  var arr1 = str.split("|");
+  var nums = arr1[0];
+  var nums1 = nums.slice(-4);
+  return nums1;
+}
+module.exports = {
+  phones:phones,
+}

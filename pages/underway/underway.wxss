@@ -1,0 +1,368 @@
+@import '../../app.wxss';
+
+.page {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+}
+.container {
+  width: 100%;
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0; */
+}
+
+.flexBox {
+  width: 710rpx;
+  /* height: 280rpx; */
+  /* position: absolute;
+  bottom: 330rpx;
+  display: flex;
+  justify-content: space-between; */
+}
+
+.flexBox .flex-item {
+  width: 30%;
+  /* height: 280rpx; */
+  padding: 10rpx;
+  border: 1px solid #d1d1d1;
+  border-radius: 20px;
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 24rpx;
+  /* box-shadow:3px 1px 3px #e0e0e0;  */
+}
+
+.flex-item.active {
+  background-color: #AFEEEE;
+  border: 1px solid #AFEEEE;
+}
+
+.current-mylocation-box {
+  position: absolute;
+  width: 100rpx;
+  height: 100rpx;
+  right: 20rpx;
+  bottom: 12rpx;
+  z-index: 999;
+}
+
+.current-mylocation {
+  width: 100rpx;
+  height: 100rpx;
+}
+.driver{
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+}
+.head{
+  width:20%;
+  height: 200rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding-left:20rpx;
+}
+.headimg{
+  width: 130rpx;
+  height: 130rpx;
+}
+.line{
+  width: 100%;
+  height: 10rpx;
+  background-color: #ec8802;
+}
+.lineimg{
+  width: 100%;
+  height: 10rpx;
+  object-fit: cover;
+  display: block;
+}
+.cars{
+  width:60%;
+}
+.pai{
+  width: 190rpx;
+  background-color: #1a66ca;
+  color: #fff;
+  border-radius: 10rpx;
+  text-align: center;
+  margin-top: 10rpx;
+}
+.xianlu{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: flex;
+}
+.point{
+  width: 26rpx;
+  height: 26rpx;
+  background-color: coral;
+  margin-top: 27rpx;
+  border-radius: 50%;
+}
+.xname{
+  margin-left: 10rpx;
+}
+.time{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  margin-top: -6rpx;
+}
+.timeicon{
+  width: 40rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  align-items: center;
+  display: flex;
+}
+.timeDetail{
+  margin-left: 10rpx;
+  color: #18be79;
+  font-weight: 600;
+}
+.xianluImg{
+  width: 40rpx;
+  height: 40rpx;
+}
+.status{
+  width: 20%;
+  height: 200rpx;
+  line-height: 200rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #e80808;
+}
+.Olist{
+  width: 100%;
+}
+.itemInfo{
+  width: 100%;
+  height: 180rpx;
+  border-bottom: 1rpx solid #d2d2d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.userInfo{
+  width: 20%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+}
+.userKuan{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 10rpx;
+  border: 4rpx solid #d03505;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #d03505;
+  text-orientation: initial;
+}
+.Oinfo{
+  width: 60%;
+  height: 180rpx;
+}
+.rennum{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 6rpx;
+  display: flex;
+}
+.xv{
+  width:150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.xv2{
+  width:150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.xv1{
+  width:150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color:#fc9153
+}
+.input-str{
+  height: 20rpx;
+  width: 20rpx;
+  border-radius: 50%;
+  background: #3cbca3;
+}
+.input-end{
+  height: 20rpx;
+  width: 20rpx;
+  border-radius: 50%;
+  background: #fc9153;
+}
+.star{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  align-items: center;
+  padding-left: 16rpx;
+}
+.starName{
+  width:400rpx;
+  font-size: 30rpx;
+  margin-left: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.caozuo{
+  width: 20%;
+  height: 180rpx;
+}
+.daohang{
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  align-items: center;
+}
+.daoKuan{
+  width: 30%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+}
+.daoImg{
+  width: 40rpx;
+  height: 40rpx;
+}
+.daoName{
+  width: 70%;
+  color: #1a66ca;
+  font-weight: 600;
+  margin-left: 10rpx;
+  font-size: 30rpx;
+}
+.buttons{
+  width: 100%;
+  height: 90rpx;
+}
+.xiache{
+  width: 90%;
+  height: 70rpx;
+  line-height: 70rpx;
+  background-color: #1a66ca;
+  color: #fff;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+.bottomView{
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+}
+.wancheng{
+  width: 65%;
+  height: 100rpx;
+  background-color:#eaedeefa;
+  text-align: center;
+  line-height: 100rpx;
+  color: #fff;
+  pointer-events:none;
+  z-index: 100;
+}
+.movable-view{
+  width: 100%;
+  height: 100%;
+  background-color:#099ce0fa;
+  pointer-events:auto;
+  text-align: center;
+}
+.xiangqing{
+  width: 35%;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+}
+.xiangDetail{
+  width:80%;
+  height:60rpx;
+  color: #099ce0fa;
+  line-height: 60rpx;
+  border: 6rpx solid #099ce0fa;
+  margin-left: 10%;
+  margin-top:16rpx ;
+}
+.bg{
+  padding: 0 50rpx;
+  margin: 216rpx auto 0;
+  text-align: center;
+  color: #9A9A9A;
+  font-size: 28rpx;
+}
+
+.bg-img{
+  width: 324rpx;
+  height: 317rpx;
+  margin-bottom: 21rpx;
+}
+
+.bg-cont{
+  color: #FF8008;
+}
+.fanbutton{
+  background-color: #3cbca3;
+  color: #fff;
+  height:80rpx ;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 80rpx;
+  border-radius: 20rpx;
+  margin-top: 40rpx;
+}
+.shuaxin{
+  position: absolute;
+  width: 100rpx;
+  height: 100rpx;
+  right: 10rpx;
+  top: 12rpx;
+  z-index: 999;
+  align-items: center;
+}
+.shuaxinImg{
+  width: 60rpx;
+  height: 60rpx;
+}
+.shuaView{
+  font-size: 28rpx;
+  margin-top: -20rpx;
+  margin-left: 6rpx;
+}

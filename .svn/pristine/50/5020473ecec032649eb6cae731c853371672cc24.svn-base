@@ -1,0 +1,80 @@
+/* pages/login/login.wxss */
+page{
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+}
+.content{
+  width: 100vw;
+}
+.logo{
+  width: 100vw;
+  text-align: center;
+  margin-top: 40rpx;
+}
+.logoimg{
+  width: 326rpx;
+  height:136rpx;
+}
+.inputArea{
+  width: 100vw;
+  margin-top: 100rpx;
+}
+.inputTitle{
+  margin-left: 60rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.phone{
+  height: 80rpx;
+  width: 80vw;
+  margin-left: 60rpx;
+}
+.inputPhone{
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 80%;
+}
+.line{
+  border-bottom: 1rpx solid;
+  width: 80vw;
+  margin-left: 60rpx;
+  color: #c7c7c7;
+}
+.regArea{
+  margin-top: 10rpx;
+  float: right;
+  margin-right: 20rpx;
+}
+.regText{
+  color:#089bf1;
+}
+.buttonArea{
+  width: 100%;
+  margin-top: 140rpx;
+  text-align: center;
+}
+.buttons{
+  width: 80%;
+  background-color: #0a44d8;
+  color: #fff;
+}
+.signUp-tip{ 
+  position: absolute;
+  top:68%;
+  left: 59%;
+  transform: translateX(-50%);
+  font-size: 26rpx;
+  color: #999;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 100%
+}
+.signUp-tip-txt{
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.signUp-tip-txt-protocol{
+  font-size: 28rpx;
+  color: #0d88d0;
+}

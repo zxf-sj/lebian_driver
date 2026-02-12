@@ -1,0 +1,47 @@
+<!--pages/scheduleMonad/scheduleMonad.wxml-->
+<!-- pages/trip/index.wxml -->
+<view class="tab-container">
+  <!-- Tab 标签 -->
+  <view class="tab-header">
+    <view class="tab-item {{activeTab === 'today' ? 'active' : ''}}" bindtap="switchTab" data-tab="today">
+      今日行程
+    </view>
+    <view class="tab-item {{activeTab === 'history' ? 'active' : ''}}" bindtap="switchTab" data-tab="history">
+      历史行程
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="tab-content">
+    <block wx:if="{{activeTab === 'today'}}">
+      <view class="trip-list">
+        <scroll-view wx:if="{{dataList}}" scroll-y="true" class='hiddenBar' lower-threshold="100" style="height:92vh" bindscrolltolower="scrollToLower">
+          <view class="listBox" wx:for="{{dataList}}" wx:for-index="Id" data-Id="{{item.Id}}" wx:for-item="item" wx:key="index" bind:tap="handleItem" data-activeTab="today">
+            <view class="trip-item">类型：{{item.TravelType}} | 时间：{{item.TravelTimeDate}}</view>
+            <view class="trip-item">路线：{{item.PassengerLineId_Name}}</view>
+          </view>
+          <view style="text-align: center;margin: 10px;">
+            <view wx:if="{{loading}}">加载中...</view>
+            <view wx:if="{{noMore}}">没有更多了</view>
+            <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+    <block wx:elif="{{activeTab === 'history'}}">
+      <view class="trip-list">
+        <scroll-view wx:if="{{dataList}}" scroll-y="true" class='hiddenBar' lower-threshold="100" style="height:92vh" bindscrolltolower="scrollToLower">
+          <view class="listBox" wx:for="{{dataList}}" wx:for-index="id" wx:for-item="item" wx:key="index" bind:tap="handleItem" data-Id="{{item.Id}}" data-activeTab="history">
+            <view class="trip-item">类型：{{item.TravelType}} | 时间：{{item.TravelTimeDate}}</view>
+            <view class="trip-item">路线：{{item.PassengerLineId_Name}}</view>
+          </view>
+          <view style="text-align: center;margin: 10px;">
+            <view wx:if="{{loading}}">加载中...</view>
+            <view wx:if="{{noMore}}">没有更多了</view>
+            <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+  </view>
+</view>

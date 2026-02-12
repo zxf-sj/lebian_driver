@@ -1,0 +1,17 @@
+/* pages/scheduleDetail/scheduleDetail.wxss */
+.form-item {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #eee;
+  font-size: 28rpx;
+}
+
+.label {
+  width: 180rpx;
+  color: #666;
+}
+
+.editable input {
+  flex: 1;
+  text-align: right;
+}

@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/start/start",
+    "pages/index/index",
+    "pages/underway/underway",
+    "pages/personalCenter/personalCenter",
+    "custom-tab-bar/index",
+    "pages/detail/detail",
+    "pages/carinfo/carinfo"
+  ],
+  "subpackages": [
+    {
+      "root": "user_center",
+      "name": "user_center",
+      "pages": [
+        "pages/login/login",
+        "pages/agreement/agreement",
+        "pages/yinsi/yinsi",
+        "pages/register/register"
+      ],
+      "independent": false
+    }
+  ],
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "订单",
+        "iconPath": "/assets/images/dd0.png",
+        "selectedIconPath": "/assets/images/dd1.png"
+      },
+      {
+        "pagePath": "pages/underway/underway",
+        "text": "进行中",
+        "iconPath": "/assets/images/jingxingzhon0.png",
+        "selectedIconPath": "/assets/images/jinxingzhon.png"
+      },
+      {
+        "pagePath": "pages/personalCenter/personalCenter",
+        "text": "我的",
+        "iconPath": "/assets/images/wd0.png",
+        "selectedIconPath": "/assets/images/wd1.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "需要获取你的位置信息"
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "乐遍出行",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "plugins": {},
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "lazyCodeLoading": "requiredComponents"
+}

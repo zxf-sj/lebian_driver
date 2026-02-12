@@ -1,0 +1,135 @@
+<view class="content">
+  <view class="dispath">
+    <view class="title">派车单</view>
+    <view class="star">
+      <view class="input-end"></view>
+      <view class="starName">{{infos.PassengerLineId_Name}}</view>
+    </view>
+    <view class="siteNum">
+      <view class="siteNumView">
+        <image src="/assets/images/person.png" mode="" class="siteNumImg" />
+      </view>
+      <view class="snums">{{infos.Ridership}}人</view>
+    </view>
+    <view class="time">
+      <view class="startimg">
+        <image src="/assets/images/starttime.png" class="sImg"></image>
+      </view>
+      <view class="startime">{{infos.StartingTime}}</view>
+      <view class="jiant">
+        <image src="/assets/images/to.png" mode="" class="jImg" />
+      </view>
+      <view class="endimg">
+        <image src="/assets/images/endtime.png" mode="" class="eImg" />
+      </view>
+      <view class="endtime">{{infos.ArrivalTime}}</view>
+    </view>
+    <view class="sn">订单号:{{infos.Code}}</view>
+    <view class="sn">业务日期:{{infos.CreateDate}}</view>
+  </view>
+  <view class="input-row">
+    <text class="label">车程ECT：</text>
+    <input class="input" type="digit" value="{{ etcValue }}" bindinput="onEctInput" placeholder="请输入ECT金额" />
+
+  </view>
+  <view class="input-row">
+    <text class="label">本程电费：</text>
+    <input class="input" type="digit" value="{{ electricityValue }}" bindinput="onElectricityInput" placeholder="请输入电费金额" />
+
+  </view>
+  <view class="input-row">
+    <text class="label">备注：</text>
+    <textarea 
+      class="input" 
+      value="{{ textareaValue }}"
+      bindinput="onInput"
+      data-field="remark"
+      placeholder="请输入备注"
+      maxlength="200"
+    />
+    <button class="submit-btn" bindtap="handleSubmit">提交</button>
+  </view>
+  <view class="olist" wx:for="{{list}}" wx:for-item="item" wx:key="index">
+    <view class="item">
+      <view class="statusView">
+        <view class="cars">
+          <view class="not">{{item.Personal_Name}}</view> |<view class="not1">{{item.PassengerNumber}}人乘车</view> |<view class="not2">{{item.SeatNumber}}</view>
+        </view>
+        <view class="status">
+          <text class="nopay" wx:if="{{item.IsPayment=='100004-0000010002'}}">未付款</text>
+          <text class="payed" wx:if="{{item.IsPayment=='100004-0000010001'}}">已付款</text>
+        </view>
+      </view>
+      <view class="tubiao">
+        <view class="lianxi" wx:for="{{item.userList}}" wx:for-item="item1">
+          <view class="phoneimg">
+            <image src="/assets/images/phone.png" class="phoneImg"></image>
+          </view>
+          <view class="phonetitle" data-tel="{{item1.phone}}" bindtap="callUser">乘客{{item1.name}}</view>
+        </view>
+        <!-- <view class="anniu">
+          <view class="shou"  wx:if="{{item.IsPayment=='100004-0000010002'}}" bindtap="cashPay" data-ids="{{item.Id}}">现金收款</view>
+        </view> -->
+      </view>
+      <view class="chufa">出发时间：{{item.ArrivalTime}}</view>
+      <view class="address">
+        <view class="start">
+          <view class="startPinot"></view>
+          <view class="sAddress">起点:{{item.IntoLocation}}</view>
+        </view>
+        <view class="to">
+          <view class="toView">
+            <image src="/assets/images/to.png" class="toImg"></image>
+          </view>
+        </view>
+        <view class="end">
+          <view class="endPiont"></view>
+          <view class="eAddress">终点:{{item.OffLocation}}</view>
+        </view>
+      </view>
+      <view class="heji">
+        <view class="hejicount">合计金额（优惠前）</view>
+        <view class="yuan">{{item.TotalAmount}}元</view>
+        <view class="youhui">优惠金额</view>
+        <view class="yuan">0元</view>
+      </view>
+      <view class="shifu">
+        <view class="shifuTitle">实付金额</view>
+        <view class="yuan">{{item.TotalAmount}}元</view>
+      </view>
+      <view class="shifu" wx:if="{{item.IsPickGoods == '100004-0000010001'}}">
+        <view class="shifuTitle">寄件联系方式：</view>
+        <view data-tel="{{item.DeliverGoodsTel}}" bindtap="callPhone" class="phones">{{item.DeliverGoodsTel}}</view>
+      </view>
+      <view class="shifu" wx:if="{{item.IsPickGoods == '100004-0000010001'}}">
+        <view class="shifuTitle">收件联系方式：</view>
+        <view data-tel="{{item.TakeOverGoodsTel}}" bind:tap="callPhone" class="phones">{{item.TakeOverGoodsTel}}</view>
+      </view>
+      <view class="shifu" wx:if="{{item.IsPickGoods == '100004-0000010002'}}">
+        <view class="shifuTitle">收件联系方式：</view>
+        <view data-tel="{{item.PersonalIds}}" bind:tap="callPhone" class="phones">{{item.PersonalIds}}</view>
+      </view>
+      <view class="remark">
+        <view class="remarkView" wx:if="{{item.Note!=null}}">
+          <view>备注:</view>
+          <view>{{item.Note}}</view>
+        </view>
+        <view class="remarkView" wx:if="{{item.Note==null}}">备注:无</view>
+      </view>
+      <view class="line"></view>
+      <view class="fei">
+        <view class="dafei">
+          <view class="dafeiinfo">打车费（{{item.TotalAmount}}）</view>
+        </view>
+        <view class="feiyong">
+          <view class="feiyonginfo">{{item.TotalAmount}}元</view>
+        </view>
+      </view>
+      <view class="feilist">
+        <view class="feiitem">金额 {{item.TotalAmount}}元</view>
+        <view class="feiitem">实付 {{item.TotalAmount}}元</view>
+      </view>
+      <view class="kong"></view>
+    </view>
+  </view>
+</view>

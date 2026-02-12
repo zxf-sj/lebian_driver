@@ -1,0 +1,96 @@
+<view class="container">
+  <view class="menu_box">
+    <text class='menu1 {{menuTapCurrent=="0"&&"borders"}}' data-current="0" catchtap="menuTap">进行中</text>
+    <text class='menu2 {{menuTapCurrent=="1"&&"borders"}}' data-current="1" catchtap="menuTap">已完成</text>
+  </view>
+  <scroll-view wx:if="{{ menuTapCurrent==0 && listData.length>0}}" scroll-y="true" class='hiddenBar' lower-threshold="100" style="height:92vh" bindscrolltolower="scrollToLower">
+    <view class="listBox" wx:for="{{listData}}" wx:for-index="id" wx:for-item="item" wx:key="index" data-ids="{{item.Id}}" bindtap=orderDetail" wx:if="{{item.FormState=='100004-0000990006'}}">
+      <view class="flex-title font-28">
+        <text class="font-32">派单号:{{item.Code}}</text>
+        <text class="status">{{item.FormState_Name=='草稿'?'已取消':item.FormState_Name}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/starttime1.png"></image>
+        <text class="time">出发时间：{{item.StartingTime}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/line.png"></image>
+        <text class="time1">客运线路：{{item.PassengerLineId_Name}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/person.png"></image>
+        <text class="time1">乘车人数：{{item.Ridership}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/person.png"></image>
+        <text class="time1">货物数量：{{item.GoodsShip}}</text>
+      </view>
+      <view class="doYu" wx:if="{{item.FormState=='100004-0000990006'}}">
+        <button class="doYuyue" catch:tap="doYu" data-ids="{{item.Id}}">开始执行预约单</button>
+      </view>
+    </view>
+    <view class="listBox" wx:for="{{listData}}" wx:for-index="id" wx:for-item="item" wx:key="index" data-id="{{item.Id}}" bindtap="dispatchLDetail" wx:if="{{item.FormState!='100004-0000990006'}}">
+      <view class="flex-title font-28">
+        <text class="font-32">派单号:{{item.Code}}</text>
+        <text class="status">{{item.FormState_Name=='草稿'?'已取消':item.FormState_Name}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/starttime1.png"></image>
+        <text class="time">出发时间：{{item.StartingTime}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/line.png"></image>
+        <text class="time1">客运线路：{{item.PassengerLineId_Name}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/person.png"></image>
+        <text class="time1">乘车人数：{{item.Ridership}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/person.png"></image>
+        <text class="time1">货物数量：{{item.GoodsShip}}</text>
+      </view>
+      <view class="doYu" wx:if="{{item.FormState=='100004-0000990006'}}">
+        <button class="doYuyue" catch:tap="doYu" data-ids="{{item.Id}}">开始执行预约单</button>
+      </view>
+    </view>
+    <view style="text-align: center;margin: 10px;">
+      <view wx:if="{{loading}}">加载中...</view>
+      <view wx:if="{{noMore}}">没有更多了</view>
+      <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+    </view>
+  </scroll-view>
+  <scroll-view wx:if="{{ menuTapCurrent==1 && listData.length>0}}" scroll-y="true" class='hiddenBar' lower-threshold="100" style="height:92vh" bindscrolltolower="scrollToLower">
+    <view class="listBox" wx:for="{{listData}}" wx:for-index="id" wx:for-item="item" wx:key="index" data-ids="{{item.Id}}" bindtap="orderDetail">
+      <view class="flex-title font-28">
+        <text class="font-32">派单号:{{item.Code}}</text>
+        <text class="status">{{item.FormState_Name=='草稿'?'已取消':item.FormState_Name}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/starttime1.png"></image>
+        <text class="time">出发时间：{{item.StartingTime}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/line.png"></image>
+        <text class="time1">客运线路：{{item.PassengerLineId_Name}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/person.png"></image>
+        <text class="time1">乘车人数：{{item.Ridership}}</text>
+      </view>
+      <view class="list-time font-28">
+        <image src="/assets/images/person.png"></image>
+        <text class="time1">货物数量：{{item.GoodsShip}}</text>
+      </view>
+    </view>
+    <view style="text-align: center;margin: 10px;">
+      <view wx:if="{{loading}}">加载中...</view>
+      <view wx:if="{{noMore}}">没有更多了</view>
+      <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+    </view>
+  </scroll-view>
+  <view wx:if="{{noOrder}}" class="bg">
+    <image class="bg-img" src="/assets/images/no_list.png"></image>
+    <view class="bg-cont">近期没有订单记录~</view>
+  </view>
+</view>

@@ -1,0 +1,14 @@
+<view class="tab-bar" wx:if="{{selected !=1}}">
+  <view class="tab-bar-border"></view>
+  <block wx:for="{{list}}" wx:key="index">
+    <view class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab" wx:if="{{index!=1}}">
+      <image src="{{selected === index ? item.selectedIconPath : item.iconPath}}" class="tab-bar-item-img"></image>
+      <view style="color: {{selected === index ? selectedColor : color}}" class="tab-bar-item-view">{{item.text}}</view>
+    </view>
+    <view class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab" wx:if="{{index==1}}">
+      <image src="{{selected === index ? item.selectedIconPath : item.iconPath}}" style="height: 50px;width: 50px;margin-top: -50rpx;" class="tab-bar-item-img"></image>
+      <view style="color: {{selected === index ? selectedColor : color}}" class="tab-bar-item-view">{{item.text}}</view>
+    </view>
+  </block>
+ 
+</view>
