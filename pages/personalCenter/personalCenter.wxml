@@ -13,7 +13,7 @@
           </picker>
         </view>
         <view class="cars">
-            <view class="pai">{{carinfo.Name}}</view>
+            <view class="pai" bind:tap="handlecarpai">{{carinfo.Name}}</view>
             <view class="cartype">{{carinfo.OnLineCarType_Name}}</view>
         </view>
         <view class="tel">

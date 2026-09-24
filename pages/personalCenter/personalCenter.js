@@ -62,22 +62,50 @@ Page({
         url: '/user_center/pages/login/login',
       })
     }else{
-      // var carInfo = wx.getStorageSync('carInfo');
-      // var status =  carInfo.StatusId;
-      // var arr = this.data.statusArr;
-      // var statusIndex = 0;
-      // arr.forEach((item,index)=>{
-      //   if(item.status==status){
-      //     statusIndex = index;
-      //   }
-      // });
       this.getCarInfo();
       this.setData({
-        userinfo :userInfo,
-        //carinfo:carInfo,
-        //statusIndex:statusIndex
+        userinfo :userInfo
       })
     }
+  },
+  handlecarpai() {
+    let _this = this;
+    let userInfo = wx.getStorageSync('userInfo')
+    wx.showModal({
+      title: '提示',
+      content: '是否扫码绑定车牌？',
+      success(res) {
+        if (res.confirm) {
+          wx.scanCode({
+            success(res) {
+              console.log('扫码成功', res);
+              let data =  {
+                "Id":userInfo.Id,
+                "Name":res.result
+            }
+              http.postRequest("/api/DriverApp/ChangeDriverNo",data,"", res2 => {
+              wx.setStorageSync('carInfo', res2.data.carInfo)
+              wx.setStorageSync('userInfo', res2.data)
+              _this.setData({
+                carinfo:res2.data.carInfo
+              })
+              }, err => {
+                wx.showToast({
+                  title:"网络出现问题",
+                  icon:"none"
+                })
+              })
+            },
+            fail(err) {
+              console.error('扫码失败', err);
+            }
+          });
+
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   },
   getCarInfo(){
     let that = this;

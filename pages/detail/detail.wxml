@@ -89,13 +89,13 @@
       </view>
       <view class="heji">
         <view class="hejicount">合计金额（优惠前）</view>
-        <view class="yuan">{{item.TotalAmount}}元</view>
+        <view class="yuan">{{item.PayAmount}}元</view>
         <view class="youhui">优惠金额</view>
         <view class="yuan">0元</view>
       </view>
       <view class="shifu">
         <view class="shifuTitle">实付金额</view>
-        <view class="yuan">{{item.TotalAmount}}元</view>
+        <view class="yuan">{{item.PayAmount}}元</view>
       </view>
       <view class="shifu" wx:if="{{item.IsPickGoods == '100004-0000010001'}}">
         <view class="shifuTitle">寄件联系方式：</view>
@@ -106,7 +106,7 @@
         <view data-tel="{{item.TakeOverGoodsTel}}" bind:tap="callPhone" class="phones">{{item.TakeOverGoodsTel}}</view>
       </view>
       <view class="shifu" wx:if="{{item.IsPickGoods == '100004-0000010002'}}">
-        <view class="shifuTitle">收件联系方式：</view>
+        <view class="shifuTitle">联系方式：</view>
         <view data-tel="{{item.PersonalIds}}" bind:tap="callPhone" class="phones">{{item.PersonalIds}}</view>
       </view>
       <view class="remark">
@@ -116,19 +116,19 @@
         </view>
         <view class="remarkView" wx:if="{{item.Note==null}}">备注:无</view>
       </view>
-      <view class="line"></view>
-      <view class="fei">
+      <!-- <view class="line"></view> -->
+      <!-- <view class="fei">
         <view class="dafei">
           <view class="dafeiinfo">打车费（{{item.TotalAmount}}）</view>
         </view>
         <view class="feiyong">
           <view class="feiyonginfo">{{item.TotalAmount}}元</view>
         </view>
-      </view>
-      <view class="feilist">
+      </view> -->
+      <!-- <view class="feilist">
         <view class="feiitem">金额 {{item.TotalAmount}}元</view>
         <view class="feiitem">实付 {{item.TotalAmount}}元</view>
-      </view>
+      </view> -->
       <view class="kong"></view>
     </view>
   </view>

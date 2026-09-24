@@ -40,25 +40,31 @@
     <input 
       name="ElectricityBill" 
       type="digit" 
-      disabled="true"
       placeholder="请输入电费（元）"
       value="{{ formData.ElectricityBill }}"
       bindinput="onElectricityFeeInput"
     />
   </view>
-
+  
   <view class="form-item editable">
     <text class="label">本程ETC：</text>
-    <!-- disabled="{{activeTab == 'history'}}" -->
     <input 
       name="ETC" 
       type="digit" 
-      disabled="true"
       placeholder="请输入ETC费用（元）"
       value="{{ formData.ETC }}"
       bindinput="onEtcFeeInput"
     />
   </view>
-
-  <!-- <button form-type="submit" type="primary" wx:if="{{activeTab == 'today'}}">提交</button> -->
+  <view class="form-item editable">
+    <text class="label">备注:</text>
+    <textarea 
+      name="Note" 
+      type="digit" 
+      placeholder="请输入备注信息"
+      value="{{ formData.Note }}"
+      bindinput="onNote"
+    />
+  </view>
+  <button form-type="submit" type="primary" >提交</button>
 </form>

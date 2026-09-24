@@ -48,7 +48,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "需要获取你的位置信息"
+      "desc": "你的位置信息将用于获取当前位置的详细地址"
     }
   },
   "window": {
@@ -60,7 +60,7 @@
   "sitemapLocation": "sitemap.json",
   "plugins": {},
   "requiredPrivateInfos": [
-    "getLocation"
+    "getLocation","startLocationUpdate","onLocationChange"
   ],
   "lazyCodeLoading": "requiredComponents"
 }

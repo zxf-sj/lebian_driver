@@ -2,11 +2,13 @@ const BASE_URL = require("../../utils/BASE_URL");
 var baseUrl = BASE_URL.BASE_URL //配置基础url
 import http from '../../utils/http.js';
 import qqmapsdk from '../../libs/qqMap';
+import bmap from '../../libs/bmap-wx'
 let SCREEN_WIDTH = 750;
 const app = getApp();
 let RATE = wx.getWindowInfo().screenHeight / wx.getWindowInfo().screenWidth;
 Page({
   data: {
+    scale: 15,
     ScreenTotalW: SCREEN_WIDTH,
     ScreenTotalH: SCREEN_WIDTH * RATE - 550,
     longitude: '',
@@ -17,95 +19,142 @@ Page({
     orderId: "",
     dispatchInfo: "",
     orderInfo: "",
-    isshow: false
+    isshow: false,
+    kong:false
   },
   onLoad: function (opt) {
     let _this = this;
     // _this.getOrderInfo();
+
   },
 
   onShow() {
     let _this = this;
     _this.getOrderInfo();
+    var BMap = new bmap.BMapWX({
+      // ak: 'MnTm62X4dihvBjjN0FBtlgFkG0kTHpAx'
+      key:'FD2Wvwuq8uRaFgheLXBn13U'
+    });
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 1
       })
     }
+    // BMap.search({
+    //   "query": '酒店',
+    //   success: function(data) {
+    //     // data.wxMarkerData 已经是包含多个标注点的数组
+    //     console.log(data)
+    //     _this.setData({
+    //       markers: data.wxMarkerData,
+    //       // 将地图中心点移动到第一个标注点
+    //       latitude: data.wxMarkerData[0].latitude,
+    //       longitude: data.wxMarkerData[0].longitude
+    //     });
+    //   },
+    //   fail: function(data) {
+    //     console.log('检索失败', data);
+    //   }
+    // });
   },
   // 驾车路线
-  driving(str1, str2, end1, end2) {
-    var _this = this;
-    //调用距离计算接口
-    qqmapsdk.direction({
-      mode: 'driving', //可选值：'driving'（驾车）、'walking'（步行）、'bicycling'（骑行），不填默认：'driving',可不填
-      //from参数不填默认当前地址
-      from: {
-        'latitude': str1,
-        'longitude': str2
-      },
-      to: {
-        'latitude': end1,
-        'longitude': end2
-      },
-      success: function (res) {
-        var ret = res;
-        var coors = ret.result.routes[0].polyline,
-          pl = [];
-        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
-        var kr = 1000000;
-        for (var i = 2; i < coors.length; i++) {
-          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
-        }
-        //将解压后的坐标放入点串数组pl中
-        for (var i = 0; i < coors.length; i += 2) {
-          pl.push({
-            latitude: coors[i],
-            longitude: coors[i + 1]
-          })
-        }
-        let _points = [{
-          latitude: parseFloat(str1),
-          longitude: parseFloat(str2)
-        }, {
-          latitude: parseFloat(end1),
-          longitude: parseFloat(end2)
-        }]
+  // driving(str1, str2, end1, end2) {
+  //   var _this = this;
+  //   //调用距离计算接口
+  //   qqmapsdk.direction({
+  //     mode: 'driving', //可选值：'driving'（驾车）、'walking'（步行）、'bicycling'（骑行），不填默认：'driving',可不填
+  //     //from参数不填默认当前地址
+  //     from: {
+  //       'latitude': str1,
+  //       'longitude': str2
+  //     },
+  //     to: {
+  //       'latitude': end1,
+  //       'longitude': end2
+  //     },
+  //     success: function (res) {
+  //       var ret = res;
+  //       var coors = ret.result.routes[0].polyline,
+  //         pl = [];
+  //       //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+  //       var kr = 1000000;
+  //       for (var i = 2; i < coors.length; i++) {
+  //         coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+  //       }
+  //       //将解压后的坐标放入点串数组pl中
+  //       for (var i = 0; i < coors.length; i += 2) {
+  //         pl.push({
+  //           latitude: coors[i],
+  //           longitude: coors[i + 1]
+  //         })
+  //       }
+  //       let _points = [{
+  //         latitude: parseFloat(str1),
+  //         longitude: parseFloat(str2)
+  //       }, {
+  //         latitude: parseFloat(end1),
+  //         longitude: parseFloat(end2)
+  //       }]
 
-        _this.setData({
-          polyline: [{
-            points: pl,
-            color: '#3091e0DD',
-            width: 4,
-            arrowLine: true
-          }]
-        })
+  //       _this.setData({
+  //         polyline: [{
+  //           points: pl,
+  //           color: '#3091e0DD',
+  //           width: 4,
+  //           arrowLine: true
+  //         }]
+  //       })
 
-        _this.mapCtx.includePoints({
-          padding: [120],
-          points: _points,
-        })
-      },
-      fail: function (error) {
-        console.log(error);
-      }
-    });
-  },
+  //       _this.mapCtx.includePoints({
+  //         padding: [120],
+  //         points: _points,
+  //       })
+  //     },
+  //     fail: function (error) {
+  //       console.log(error);
+  //     }
+  //   });
+  // },
   //定位当前位置
   getMyLocation() {
     var _self = this
     wx.getLocation({
       type: "wgs84",
       success(res) {
+       
+    let requests = res.longitude + "," + res.latitude
+    _self.setData({
+      latitude: res.latitude,
+      longitude: res.longitude
+    })
+    return
+    wx.request({
+      url: baseUrl + '/api/MapWebApi/GeoConv',
+      data: {
+        LatLngs: requests,
+        Model: 1,
+      },
+      method: "POST",
+      success: (res2) => {
+        console.log(res2.data.data)
+        console.log(res2.data.data[0].Item1)
+        console.log(res2.data.data[0].Item2)
         _self.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
+          latitude: res2.data.data[0].Item1,
+          longitude: res2.data.data[0].Item2
         })
+      },
+      fail(err) {
+        console.log(err)
+        wx.hideLoading()
+      }
+    })
       },
       fail(err) {
         console.log(err);
       }
     })
+    
   },
   chufa(e) {
     let that = this;
@@ -117,6 +166,7 @@ Page({
           var oid = that.data.orderId;
           var status = "100004-0000990003";
           var list = that.data.orderInfo;
+          console.log(list)
           for (var i = 0; i < list.length; i++) {
             if (list[i].FormState != '100004-0001020006') {
               var tel = list[i].Personal_Phone;
@@ -196,19 +246,46 @@ Page({
           var oid = that.data.orderId;
           var status = "100004-0000990005";
           var list = that.data.orderInfo;
+          console.log('list',list)
           for (var i = 0; i < list.length; i++) {
-            if (list[i].FormState != '100004-0001020007') {
-              //var tel = list[i].Personal_Phone;
-              wx.showToast({
-                title: "还有乘客还还未下车",
-                icon: "none",
-              })
-              return false;
-            } else {
-              continue;
+            if(list[i].FormState != '100004-0001020004') {
+              if (list[i].FormState != '100004-0001020007') {
+                //var tel = list[i].Personal_Phone;
+                wx.showToast({
+                  title: "还有乘客还还未下车",
+                  icon: "none",
+                })
+                return false;
+              } else {
+                continue;
+              }
             }
+           
           }
-
+          // http.getRequest("/Api/DispatchMobile/changeDispatchState?id=" + oid + "&status=" + status , "", "", res => {
+          //   that.setData({
+          //     loading: false
+          //   })
+          //   if (res.code == 0) {
+          //     wx.showModal({
+          //       title: '提示',
+          //       content: '操作成功，是否去充电',
+          //       success(res) {
+          //         if (res.confirm) {
+          //           that.chongdian();
+          //           that.getOrderInfo();
+          //         } else if (res.cancel) {
+          //           that.getOrderInfo();
+          //         }
+          //       }
+          //     })
+          //   }
+          // }, err => {
+          //   wx.showToast({
+          //     title: "网络出现问题",
+          //     icon: "none"
+          //   })
+          // })
           wx.scanCode({
             success(res) {
               console.log('扫码成功', res);
@@ -231,10 +308,20 @@ Page({
                       }
                     }
                   })
+                } else if (res.code == 400) {
+                  wx.showToast({
+                    title: res.msg,
+                    icon: "none"
+                  })
+                } else {
+                  wx.showToast({
+                    title: res.msg,
+                    icon: "none"
+                  })
                 }
               }, err => {
                 wx.showToast({
-                  title: "网络出现问题",
+                  title: res.msg,
                   icon: "none"
                 })
               })
@@ -275,6 +362,7 @@ Page({
     })
   },
   getOrderInfo() {
+    console.log('99999999999')
     let that = this;
     var orderId = wx.getStorageSync('orderId');
     // var orderId = '300214-9a19d38b46f241e1b6074897a93e742e'
@@ -283,82 +371,47 @@ Page({
     })
     console.log('orderId', orderId)
     if (orderId) {
-      http.getRequest("/api/RideTicketStatisticsDay/getDispatchOrderDetail?orderId=" + orderId, "", "", res => {
+      http.getRequest("/api/RideTicketStatisticsDay/getWxDispatchOrderDetail?orderId=" + orderId, "", "", res => {
         console.log(res)
         that.setData({
           loading: false
         })
         if (res.code == 0) {
-          res.data.StartingTime = that.getNewtime(res.data.StartingTime);
+          if(res.data.detailList) {
+            res.data.StartingTime = that.getNewtime(res.data.StartingTime);
+          
+          var markers = [];
+          var list = res.data.detailList;
+          console.log(list)
           that.setData({
             dispatchInfo: res.data,
             orderInfo: res.data.detailList,
-            isshow: true
+            isshow: true,
+            longitude:list[0].IntoLongitude,
+            latitude:list[0].IntoLatitude
           })
-          that.mapCtx = wx.createMapContext("myMap");
-          var markers = [];
-          var marker = {
-            id: 100,
-            latitude: res.data.CarDirId_Latitude,
-            longitude: res.data.CarDirId_Longitude,
-            iconPath: '/assets/images/car.png',
-            width: 30,
-            height: 30,
-            callout: {
-              content: "司机位置", //文本
-              bgColor: "#fff", //背景色
-              padding: "10px 30px", //文本边缘留白
-              borderRadius: "15px", //边框圆角
-              borderWidth: "1px", //边框宽度
-              borderColor: "#ccc", //边框颜色
-              color: '#000', //文字颜色
-              textAlign: 'center', //对其方式,
-              display: 'ALWAYS', //常显  BYCLICK点击显示
-            }
-          };
-          var list = res.data.detailList;
           list.forEach((value, index) => {
-            var mark = {
-              id: 0,
-              latitude: res.data.CarDirId_Latitude,
-              longitude: res.data.CarDirId_Longitude,
-              iconPath: '/assets/images/chengke.png',
-              width: 30,
-              height: 30,
-              callout: {
-                content: "司机位置", //文本
-                bgColor: "#fff", //背景色
-                padding: "10px 30px", //文本边缘留白
-                borderRadius: "15px", //边框圆角
-                borderWidth: "1px", //边框宽度
-                borderColor: "#ccc", //边框颜色
-                color: '#000', //文字颜色
-                textAlign: 'center', //对其方式,
-                display: 'ALWAYS', //常显  BYCLICK点击显示
-              }
-            };
-            if (value.IsPickGoods == '100004-0000010001') {
-              var phone = value.TakeOverGoodsTel;
-              mark.callout.content = "终点：" + value.OffLocation;
-            } else {
-              var phone = value.PersonalIds;
-              var arr = phone.split(',');
-              var str = arr[0];
-              var arr1 = str.split("|");
-              var nums = arr1[0];
-              mark.id = index + list.length;
-              mark.latitude = value.OffLatitude;
-              mark.longitude = value.OffLongitude;
-              mark.callout.content = "尾号" + nums.slice(-4) + "\n" + "终点：" + value.OffLocation;
-            }
-            markers.push(mark)
+            console.log(value)
+            markers.push({
+              id: 1,
+              title: '天安门',
+              latitude: value.IntoLatitude,
+              longitude: value.IntoLongitude,
+              iconPath:'/assets/images/chengke.png'
+            })
           })
-          markers.push(marker)
-          wx.setStorageSync('markers', markers);
+          console.log(markers)
           that.setData({
-            markers: markers
+            markers:markers
           })
-          that.driving(res.data.startLat, res.data.startLon, res.data.endLat, res.data.endLon);
+          } else {
+            console.log('空单')
+            that.setData({
+              kong:true,
+              isshow: true
+            })
+          }
+          
         } else if (res.code == 400) {
           that.setData({
             isshow: false
@@ -404,28 +457,6 @@ Page({
       title: note,
       icon: 'none',
       direction: 2000
-    })
-  },
-  daohang(e) {
-    var lati = e.currentTarget.dataset.lati;
-    var long = e.currentTarget.dataset.long;
-    var name = e.currentTarget.dataset.address;
-    qqmapsdk.reverseGeocoder({
-      location: {
-        latitude: lati,
-        longitude: long,
-      },
-      success(res) {
-        wx.openLocation({
-          latitude: lati,
-          longitude: long,
-          name: res.result.address,
-          address: res.result.address,
-          success(r) {
-            console.log('打开内置地图：', r)
-          }
-        })
-      }
     })
   },
   shangche(e) {
@@ -496,6 +527,7 @@ Page({
   showPic(e) {
     let that = this;
     var markers = [];
+    console.log(e.currentTarget)
     let data = e.currentTarget.dataset
     var lati = data.lait;
     var long = data.long;

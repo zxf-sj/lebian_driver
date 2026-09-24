@@ -1,19 +1,14 @@
 <view class="page">
   <block wx:if="{{isshow==true}}">
-    <map id="myMap" style="width:{{ScreenTotalW}}rpx;height:45vh;" longitude="{{longitude}}"
-    latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" controls="{{controls}}"
-    include-points='{{points}}' show-location="true">
-    <view class="current-mylocation-box">
-      <image bindtap="getMyLocation" class="current-mylocation" src="/assets/images/location.png"></image>
-    </view>
-    <view class="fahui">
-      <image bindtap="fanhui" class="current-mylocation" src="/assets/images/fanhui.png"></image>
-    </view>
-    <view class="shuaxin" bindtap="shuaxin">
-      <image  class="shuaxinImg" src="/assets/images/shua.png"></image>
-      <view class="shuaView">刷新</view>
-    </view>
-  </map>
+  <view wx:if="{{kong == false}}">
+    <map class='map' id="map" style="width:{{ScreenTotalW}}rpx;height:45vh;" markers="{{markers}}"  id="indexMap" longitude='{{longitude}}' latitude='{{latitude}}' scale='{{scale}}' bindregionchange="bindregionchange" show-location="true" show-location="true"  enableZoom="true" enableScroll="true" enableRotate="false">
+      <view class="current-mylocation-box">
+        <image bindtap="getMyLocation" class="current-mylocation" src="/assets/images/location.png">
+        </image>
+      </view>
+      <!-- <image src="/assets/images/car.png" class="current-site-icon"></image> -->
+      <!-- <view class="submit" bind:tap="submit">确定</view> -->
+    </map>
   <view class="container">
     <view class="driver">
         <view class="head">
@@ -86,6 +81,7 @@
       <view class="movable-view" bindtap="daoda" wx:if="{{dispatchInfo.FormState=='100004-0000990003'}}">
         到达站点--->
       </view>
+      <!-- 扫码 -->
       <view class="movable-view" bindtap="huadong" wx:if="{{dispatchInfo.FormState=='100004-0000990004'}}">
         扫码完成订单--->
       </view>
@@ -93,6 +89,12 @@
     <view class="xiangqing">
       <view class="xiangDetail" bindtap="goDetail" data-oid="{{dispatchInfo.Id}}">订单详情></view>
     </view>
+  </view>
+  </view>
+  <view wx:if="{{kong == true}}" class="btn_box">
+    <view class="btn" bindtap="huadong"  >
+        扫码完成订单--->
+      </view>
   </view>
   </block>
   <block wx:if="{{isshow==false}}">

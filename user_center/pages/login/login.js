@@ -79,6 +79,11 @@ Page({
       return false;
     }
     http.getRequest("/Api/DispatchMobile/loginDriverCar?tel="+that.data.Phone+"&pwd="+that.data.password,"", wx.getStorageSync('header'), res => {
+      console.log(res)
+      wx.showToast({
+        title: res.msg,
+        icon:"none",
+      })
       if(res.code==0){
         wx.setStorageSync('userInfo', res.data);
         wx.setStorageSync('carInfo', res.data.carInfo);
@@ -102,7 +107,11 @@ Page({
         })
       }
     }, err => {
-        console.log(2222)
+      wx.showToast({
+        title: err.msg,
+        icon:'success',
+        duration:2000,
+      })
     })
   }
 })

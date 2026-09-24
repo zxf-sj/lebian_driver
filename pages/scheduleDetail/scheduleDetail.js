@@ -17,7 +17,8 @@ Page({
 
       // 可编辑字段（初始可为空或默认值）
       ElectricityBill: '',
-      ETC: ''
+      ETC: '',
+      Note:''
     },
     Id: '',
     activeTab:""
@@ -82,7 +83,8 @@ Page({
               TravelTimeDate: res.data.TravelTimeDate,
               TravelType: res.data.TravelType,
               ElectricityBill: res.data.ElectricityBill,
-              ETC: res.data.ETC
+              ETC: res.data.ETC,
+              Note:res.data.Note
             }
           })
         } else {
@@ -106,6 +108,11 @@ Page({
       ['formData.ETC']: e.detail.value
     });
   },
+  onNote(e) {
+    this.setData({
+      ['formData.Note']: e.detail.value
+    });
+  },
   // 实时更新电费
   onElectricityFeeInput(e) {
     this.setData({
@@ -115,10 +122,10 @@ Page({
   // 表单提交
   onSubmit(e) {
     let _this = this;
-    console.log(e)
     const {
       ElectricityBill,
-      ETC
+      ETC,
+      Note
     } = e.detail.value;
     let userInfo = wx.getStorageSync('userInfo')
     let MemberId = userInfo.Id
@@ -134,7 +141,8 @@ Page({
       MemberId,
       Id: _this.data.Id,
       ElectricityBill: parseFloat(ElectricityBill) || 0,
-      ETC: parseFloat(ETC) || 0
+      ETC: parseFloat(ETC) || 0,
+      Note:Note
     }
     http.postRequest(
       "/api/RideTicketStatisticsDay/UpdateDispatchETCAndElectricityBill",
