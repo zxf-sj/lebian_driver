@@ -1,4 +1,5 @@
 const BASE_URL = require("../../../utils/BASE_URL");
+var baseUrl = BASE_URL.BASE_URL //配置基础url
 var http = require('../../../utils/http.js');
 const app = getApp();
 Page({
@@ -87,18 +88,12 @@ Page({
       if(res.code==0){
         wx.setStorageSync('userInfo', res.data);
         wx.setStorageSync('carInfo', res.data.carInfo);
-        wx.showToast({
-          title: '登录成功',
-          icon:'success',
-          duration:2000,
-          success:function(){
-            setTimeout(function() { // 第三个toast显示1秒后跳转
-              wx.switchTab({
-                url: '/pages/index/index' // 目标页面的路径
-              });
-            }, 2000);
-          }
-        })
+        setTimeout(function() { // 第三个toast显示1秒后跳转
+                    wx.switchTab({
+                      url: '/pages/index/index' // 目标页面的路径
+                    });
+                  }, 2000);
+       
 
       }else{
         wx.showToast({

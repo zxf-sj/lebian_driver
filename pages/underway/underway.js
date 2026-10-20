@@ -1,3 +1,4 @@
+const throttle = require('../../utils/throttle.js').throttle;
 const BASE_URL = require("../../utils/BASE_URL");
 var baseUrl = BASE_URL.BASE_URL //配置基础url
 import http from '../../utils/http.js';
@@ -57,6 +58,44 @@ Page({
     //   }
     // });
   },
+  goPay:throttle(function (e) {
+    let item = e.currentTarget.dataset.item
+    // let that = this;
+    // var orderId = e.currentTarget.dataset.ids;
+    // var user = wx.getStorageSync('userInfo');
+    // let appid = wx.getStorageSync('appId')
+    // http.getRequest('/Api/DispatchMobile/GoUnionPayOrderRide?appid=' + appid + '&Id=' + orderId + '&MemberInfoId=' + user.Id, "", wx.getStorageSync('header'), (LayerOrderRes) => {
+    //   console.log('请求成功', LayerOrderRes)
+    //   if (LayerOrderRes.code == 0) {
+    //     console.log('获取支付所需信息成功')
+    //     var payData = LayerOrderRes.data
+    //     console.log('拉起支+付')
+    //     wx.requestPayment({
+    //       timeStamp: payData.TimeStamp,
+    //       nonceStr: payData.NonceStr,
+    //       package: payData.Package,
+    //       signType: payData.SignType,
+    //       paySign: payData.PaySign,
+    //       success(paymentRes) {
+           
+    //       },
+    //       fail(paymentErr) {
+    //         console.log('拉起支付失败', paymentErr)
+    //       }
+    //     })
+    //   }  else {
+    //     console.log('获取支付所需信息失败')
+    //     wx.showToast({
+    //       title: LayerOrderRes.msg,
+    //       icon: 'success',
+    //       duration: 2000,
+    //     })
+    //   }
+    // }, (LayerOrderRrr) => {
+    //   console.log('请求失败', LayerOrderRrr)
+    // })
+  },3000),
+ 
   // 驾车路线
   // driving(str1, str2, end1, end2) {
   //   var _this = this;

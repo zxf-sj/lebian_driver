@@ -1,4 +1,6 @@
 import http from '../../utils/http';
+const BASE_URL = require("../../utils/BASE_URL");
+var baseUrl = BASE_URL.BASE_URL //配置基础url
 Page({
 
   /**
@@ -67,6 +69,43 @@ Page({
         userinfo :userInfo
       })
     }
+  },
+  bindwx() {
+    let userInfo = wx.getStorageSync('userInfo')
+    if(!userInfo) {
+      console.log('没登录')
+      return
+    }
+    wx.login({
+      success (res) {
+        if (res.code) {
+          console.log(res)
+          //发起网络请求
+          wx.request({
+            url: baseUrl + '/api/DriverApp/BindWeChat',
+            data: {
+              code:res.code,
+              Id:userInfo.Id
+            },
+            method: "POST",
+            success: (data) => {
+              console.log(data)
+              wx.showToast({
+                title: data.data.msg,
+                icon:'none'
+              })
+             
+            },
+            fail(err) {
+              console.log(err)
+              wx.hideLoading()
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
   },
   handlecarpai() {
     let _this = this;

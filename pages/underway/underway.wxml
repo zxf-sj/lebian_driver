@@ -70,7 +70,9 @@
             </view>
           </view>
       </view>
-
+      <view class="gopay">
+        <button type="primary" size="mini"  bind:tap="goPay" data-item="{{item}}">支付</button>
+      </view>
     </view>
   </scroll-view>
   <view class="bottomView">
