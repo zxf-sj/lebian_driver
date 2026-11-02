@@ -1,0 +1,150 @@
+/* pages/busMine/busMine.wxss  第二套·我的 */
+page {
+  background: #f5f6f8;
+}
+.page {
+  padding: 32rpx 24rpx 140rpx;
+}
+.title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1b3a5c;
+}
+.subtitle {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #9ca3af;
+}
+
+/* 司机卡 */
+.driver-card {
+  margin-top: 28rpx;
+  background: #1b3a5c;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+}
+.driver-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: #ff8a4c;
+  color: #fff;
+  font-size: 40rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.driver-info {
+  margin-left: 24rpx;
+  flex: 1;
+}
+.driver-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #fff;
+}
+.driver-tel {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+.driver-edit {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 14rpx;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 通用卡片 */
+.card {
+  margin-top: 24rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+.card-action {
+  font-size: 24rpx;
+  color: #2f6fed;
+}
+.card-icon {
+  font-size: 26rpx;
+  color: #9ca3af;
+}
+
+/* 车辆配置 */
+.car-grid {
+  margin-top: 24rpx;
+  display: flex;
+}
+.car-cell {
+  flex: 1;
+  background: #f2f4f7;
+  border-radius: 14rpx;
+  padding: 22rpx;
+  margin-right: 20rpx;
+}
+.car-cell:last-child {
+  margin-right: 0;
+}
+.car-cell-label {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+.car-cell-value {
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* 证件 */
+.cert-empty {
+  margin-top: 24rpx;
+  background: #f2f4f7;
+  border-radius: 14rpx;
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cert-empty-text {
+  font-size: 24rpx;
+  color: #9ca3af;
+}
+
+/* 数据说明 */
+.note {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+/* 退出登录 */
+.loginOut {
+  margin-top: 40rpx;
+}
+.loginOutButton {
+  background: #fff;
+  color: #e64340;
+  font-size: 30rpx;
+  border-radius: 16rpx;
+}

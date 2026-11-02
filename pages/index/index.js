@@ -1,5 +1,5 @@
 import http from '../../utils/http';
-const transform = require('../../utils/coordinateTransform');
+
 var bmap = require('../../libs/bmap-wx.min');
 const BASE_URL = require("../../utils/BASE_URL");
 var baseUrl = BASE_URL.BASE_URL //配置基础url
@@ -22,6 +22,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
   return s;
 }
 const app = getApp();
+const driverType = require('../../utils/driverType.js');
 Page({
   data: {
     loadingFailed: false,
@@ -33,6 +34,7 @@ Page({
     intervalId: null
   },
   onLoad: function (options) {
+    if (driverType.blockBusDriver()) return; // 班车司机禁止进入第一套
     if (options.menuTapCurrent == 1) {
       this.setData({
         menuTapCurrent: options.menuTapCurrent
@@ -58,7 +60,7 @@ Page({
     clearInterval(this.data.intervalId); // 清除定时器
   },
   onShow() {
-
+    if (driverType.blockBusDriver()) return; // 班车司机禁止进入第一套
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 0

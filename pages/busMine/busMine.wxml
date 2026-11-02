@@ -1,0 +1,53 @@
+<!--pages/busMine/busMine.wxml  第二套·我的-->
+<view class="page">
+  <view class="title">我的</view>
+  <view class="subtitle">司机与车辆 · 证件档案</view>
+
+  <!-- 司机卡 -->
+  <view class="driver-card">
+    <view class="driver-avatar">{{avatarText}}</view>
+    <view class="driver-info">
+      <view class="driver-name">{{userinfo.Name || '未命名'}}</view>
+      <view class="driver-tel">{{userinfo.Phone || ''}}</view>
+    </view>
+    <view class="driver-edit" bindtap="editName">✎</view>
+  </view>
+
+  <!-- 车辆配置 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">车辆配置</text>
+      <text class="card-action" bindtap="editCar">✎ 修改</text>
+    </view>
+    <view class="car-grid">
+      <view class="car-cell">
+        <view class="car-cell-label">车牌号</view>
+        <view class="car-cell-value">{{carinfo.Name || '--'}}</view>
+      </view>
+      <view class="car-cell">
+        <view class="car-cell-label">座位数</view>
+        <!-- TODO 待班车接口：座位数字段名待后端确认，暂取 SeatCount -->
+        <view class="car-cell-value">{{carinfo.SeatCount ? carinfo.SeatCount + ' 座' : '--'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 证件管理 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">证件管理（{{certCount}}）</text>
+      <text class="card-action" bindtap="uploadCert">⊕ 上传证件</text>
+    </view>
+    <view class="cert-empty">
+      <text class="cert-empty-text" wx:if="{{certCount === 0}}">暂无证件，点击「上传证件」添加</text>
+    </view>
+  </view>
+
+  
+
+  <view class="loginOut" bindtap="loginOut">
+    <button class="loginOutButton">退出登录</button>
+  </view>
+
+  <tab-bar mode="bus" active-index="{{2}}" />
+</view>

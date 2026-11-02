@@ -1,5 +1,6 @@
 // pages/start/start.js
 var timer;
+const driverType = require('../../utils/driverType.js');
 Page({
 
   /**
@@ -24,11 +25,21 @@ Page({
   },
   skipOpenPage(){
     clearTimeout(timer);
+    this.goHome();
+  },
+  // 冷启动按身份分流：班车司机永远进第二套，其余进第一套
+  goHome(){
     var userInfo = wx.getStorageSync('userInfo');
     if(userInfo){
-      wx.reLaunch({
-        url: '/pages/index/index',
-      })
+      if(driverType.isBusDriver()){
+        wx.reLaunch({
+          url: '/pages/busIndex/busIndex',
+        })
+      }else{
+        wx.reLaunch({
+          url: '/pages/index/index',
+        })
+      }
     }else{
       wx.reLaunch({
         url: '/user_center/pages/login/login',
@@ -50,16 +61,7 @@ Page({
     var num = that.data.num;
     if (num == 0) {
       clearTimeout(timer);
-      var userInfo = wx.getStorageSync('userInfo');
-      if(userInfo){
-        wx.reLaunch({
-          url: '/pages/index/index',
-        })
-      }else{
-        wx.reLaunch({
-          url: '/user_center/pages/login/login',
-        })
-      }
+      that.goHome();
     } else {
       that.Numdown()
     }

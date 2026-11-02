@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "历史行程",
+  "usingComponents": {
+    "tab-bar": "/custom-tab-bar/index"
+  }
+}

@@ -2,13 +2,18 @@
   "pages": [
     "pages/start/start",
     "pages/index/index",
+    "pages/busIndex/busIndex",
     "pages/underway/underway",
     "pages/personalCenter/personalCenter",
     "custom-tab-bar/index",
     "pages/detail/detail",
     "pages/carinfo/carinfo",
     "pages/scheduleMonad/scheduleMonad",
-    "pages/scheduleDetail/scheduleDetail"
+    "pages/scheduleDetail/scheduleDetail",
+    "pages/busHistory/busHistory",
+    "pages/busMine/busMine",
+    "pages/busOngoingDetail/busOngoingDetail",
+    "pages/busLineDetail/busLineDetail"
   ],
   "subpackages": [
     {

@@ -6,6 +6,7 @@ import qqmapsdk from '../../libs/qqMap';
 import bmap from '../../libs/bmap-wx'
 let SCREEN_WIDTH = 750;
 const app = getApp();
+const driverType = require('../../utils/driverType.js');
 let RATE = wx.getWindowInfo().screenHeight / wx.getWindowInfo().screenWidth;
 Page({
   data: {
@@ -24,12 +25,14 @@ Page({
     kong:false
   },
   onLoad: function (opt) {
+    if (driverType.blockBusDriver()) return; // 班车司机禁止进入第一套
     let _this = this;
     // _this.getOrderInfo();
 
   },
 
   onShow() {
+    if (driverType.blockBusDriver()) return; // 班车司机禁止进入第一套
     let _this = this;
     _this.getOrderInfo();
     var BMap = new bmap.BMapWX({

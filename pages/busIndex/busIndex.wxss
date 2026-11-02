@@ -1,0 +1,290 @@
+/* pages/busIndex/busIndex.wxss  第二套·排班 */
+page {
+  background: #f5f6f8;
+  height: 100%;
+}
+/* 整页 flex 纵向：固定区在上，列表 scroll-view 撑满剩余高度 */
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+}
+.fixed-area {
+  flex-shrink: 0;
+  padding-top: 24rpx;
+}
+
+/* 顶部头图 */
+.hero {
+  background: #1b3a5c;
+  border-radius: 20rpx;
+  padding: 36rpx 32rpx;
+  color: #fff;
+}
+.hero-title {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+.hero-sub {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* 进行中卡片 */
+.ongoing {
+  margin-top: 24rpx;
+  background: linear-gradient(135deg, #24486e, #16324f);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  color: #fff;
+}
+.ongoing-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ongoing-dot-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(62, 207, 111, 0.14);
+  border: 1rpx solid rgba(62, 207, 111, 0.3);
+  border-radius: 999rpx;
+  padding: 8rpx 20rpx;
+}
+.ongoing-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #3ecf6f;
+  margin-right: 12rpx;
+  position: relative;
+  flex-shrink: 0;
+}
+/* 绿点外围循环扩散的圈 */
+.ongoing-dot::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14rpx;
+  height: 14rpx;
+  border: 2rpx solid #3ecf6f;
+  border-radius: 50%;
+  box-sizing: border-box;
+  /* 用 translate 锚定圆心，缩放全程与绿点同心 */
+  transform: translate(-50%, -50%);
+  animation: dot-ripple 1.6s ease-out infinite;
+}
+@keyframes dot-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+.ongoing-label {
+  font-size: 24rpx;
+  color: #7fe0a3;
+}
+.ongoing-badge {
+  font-size: 22rpx;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999rpx;
+  padding: 6rpx 20rpx;
+}
+.ongoing-route {
+  margin-top: 24rpx;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ongoing-from,
+.ongoing-to {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.ongoing-arrow {
+  margin: 0 14rpx;
+  color: #ff8a4c;
+  font-size: 30rpx;
+}
+.ongoing-plate {
+  margin-left: 18rpx;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1rpx solid rgba(255, 255, 255, 0.35);
+  border-radius: 8rpx;
+  padding: 2rpx 12rpx;
+}
+.ongoing-info {
+  margin-top: 24rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14rpx;
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.ongoing-col {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40rpx;
+}
+.ongoing-col-label {
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+.ongoing-col-value {
+  margin-top: 6rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+.ongoing-col-value.eta {
+  color: #ff8a4c;
+}
+.ongoing-go {
+  margin-left: auto;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #ff8a4c;
+}
+
+/* 班次列表：仅此处滚动 */
+.trip-scroll {
+  flex: 1;
+  height: 0;
+  padding-bottom: 130rpx; /* 让开固定底部栏 */
+  box-sizing: border-box;
+}
+.trip-list {
+  margin-top: 24rpx;
+}
+.trip-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 20rpx;
+}
+/* 最左列：状态在上，时间在下 */
+.trip-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 130rpx;
+}
+.trip-time {
+  margin-top: 10rpx;
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #1b3a5c;
+}
+.trip-mid {
+  flex: 1;
+  min-width: 0;
+}
+.trip-route {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+.trip-meta {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+/* 最右列：仅放操作按钮，垂直居中 */
+.trip-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+/* 状态：只读信息，纯文字 + 前置小圆点，不带底色不带边框，与按钮彻底区分 */
+.trip-status {
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  line-height: 1.2;
+}
+.trip-status::before {
+  content: "";
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: currentColor;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+/* 状态配色对应 IsStart：0 待发车=橙 / 1 已发车=绿 / 2 已完成=深蓝 */
+.status-done {
+  color: #2ba84a;
+}
+.status-departed {
+  color: #1b3a5c;
+}
+.status-waiting {
+  color: #e8890c;
+}
+
+/* 右侧操作按钮：三种形态区分主次
+   btn-start   发车（实心橙）   —— 待发车，最需要司机操作
+   btn-execute 去执行（描边绿） —— 已发车，进行中
+   btn-detail  详情（浅描边灰） —— 已完成，只读查看 */
+.trip-btn {
+  min-width: 104rpx;
+  text-align: center;
+  font-size: 24rpx;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 999rpx;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+}
+.trip-btn:active {
+  opacity: 0.72;
+}
+.trip-btn-arrow {
+  margin-left: 2rpx;
+}
+
+/* 发车：实心橙，最重 */
+.btn-start {
+  color: #fff;
+  background: linear-gradient(135deg, #f0961f, #e8890c);
+  box-shadow: 0 6rpx 14rpx rgba(232, 137, 12, 0.3);
+}
+/* 去执行：绿描边 + 浅绿底，中等 */
+.btn-execute {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2ba84a;
+  background: rgba(43, 168, 74, 0.08);
+  border: 2rpx solid #2ba84a;
+}
+/* 详情：浅灰描边，最轻 */
+.btn-detail {
+  color: #6b7280;
+  background: #fff;
+  border: 2rpx solid #d5d9e0;
+}
+.empty {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 26rpx;
+  padding: 80rpx 0;
+}
+.load-tip {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 24rpx;
+  padding: 20rpx 0 40rpx;
+}

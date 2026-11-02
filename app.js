@@ -1,6 +1,5 @@
 const BASE_URL = require("./utils/BASE_URL");
-var http = require('./utils/httpLogin');
-var httpReq = require('./utils/httpLogin'); 
+
 
 App({
 

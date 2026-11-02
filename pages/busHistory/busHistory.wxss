@@ -1,0 +1,101 @@
+/* pages/busHistory/busHistory.wxss  第二套·历史 */
+page {
+  background: #f5f6f8;
+}
+.page {
+  padding: 32rpx 24rpx 140rpx;
+}
+.title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1b3a5c;
+}
+.subtitle {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #9ca3af;
+}
+
+/* 统计条 */
+.stats {
+  margin-top: 28rpx;
+  background: #1b3a5c;
+  border-radius: 20rpx;
+  display: flex;
+  padding: 32rpx 0;
+}
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+.stat-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #fff;
+}
+.stat-label {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 分组 */
+.group-date {
+  margin: 32rpx 4rpx 16rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1b3a5c;
+}
+
+/* 班次卡片 */
+.trip-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 20rpx;
+}
+.trip-time {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #1b3a5c;
+  min-width: 120rpx;
+}
+.trip-mid {
+  flex: 1;
+  min-width: 0;
+}
+.trip-route {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+.trip-meta {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+.trip-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.trip-status {
+  font-size: 22rpx;
+  color: #fff;
+  background: #2ba84a;
+  border-radius: 999rpx;
+  padding: 6rpx 18rpx;
+}
+.trip-arrow {
+  margin-top: 10rpx;
+  color: #c4c9d2;
+  font-size: 28rpx;
+}
+.empty {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 26rpx;
+  padding: 80rpx 0;
+}

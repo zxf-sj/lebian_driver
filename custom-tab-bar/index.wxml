@@ -1,4 +1,5 @@
-<view class="tab-bar" wx:if="{{selected !=1}}">
+<!-- 第一套：订单 / 进行中 / 我的（保留原逻辑：选中「进行中」时隐藏整条 bar，中间项凸起） -->
+<view class="tab-bar" wx:if="{{mode != 'bus' && selected != 1}}">
   <view class="tab-bar-border"></view>
   <block wx:for="{{list}}" wx:key="index">
     <view class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab" wx:if="{{index!=1}}">
@@ -10,5 +11,15 @@
       <view style="color: {{selected === index ? selectedColor : color}}" class="tab-bar-item-view">{{item.text}}</view>
     </view>
   </block>
- 
+</view>
+
+<!-- 第二套：排班 / 历史 / 我的（普通等宽三项，无凸起、无隐藏逻辑） -->
+<view class="tab-bar" wx:if="{{mode == 'bus'}}">
+  <view class="tab-bar-border"></view>
+  <block wx:for="{{busList}}" wx:key="index">
+    <view class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" data-mode="bus" bindtap="switchTab">
+      <image src="{{selected === index ? item.selectedIconPath : item.iconPath}}" class="tab-bar-item-img"></image>
+      <view style="color: {{selected === index ? selectedColor : color}}" class="tab-bar-item-view">{{item.text}}</view>
+    </view>
+  </block>
 </view>

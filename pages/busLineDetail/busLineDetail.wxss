@@ -1,0 +1,150 @@
+/* pages/busLineDetail/busLineDetail.wxss  第二套·历史班次详情 */
+page {
+  background: #f5f6f8;
+}
+.page {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.body {
+  padding: 24rpx;
+}
+
+/* 班次概览卡 */
+.summary-card {
+  background: linear-gradient(135deg, #24486e, #16324f);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  color: #fff;
+}
+.summary-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.summary-route {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+.summary-from,
+.summary-to {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+.summary-arrow {
+  margin: 0 14rpx;
+  color: #ff8a4c;
+  font-size: 30rpx;
+}
+.summary-right {
+  flex-shrink: 0;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.summary-stop {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.75);
+}
+.summary-status {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #fff;
+  background: #2ba84a;
+  border-radius: 999rpx;
+  padding: 6rpx 20rpx;
+}
+.summary-meta {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+.summary-divider {
+  margin: 24rpx 0 0;
+  height: 1rpx;
+  background: rgba(255, 255, 255, 0.15);
+}
+.summary-stats {
+  padding-top: 24rpx;
+  display: flex;
+}
+.stat-col {
+  flex: 1;
+  text-align: center;
+}
+.stat-num {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #fff;
+}
+.stat-num.orange {
+  color: #ff8a4c;
+}
+.stat-label {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* 站点时间轴 */
+.timeline-card {
+  margin-top: 24rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 32rpx 28rpx;
+}
+.tl-item {
+  display: flex;
+}
+.tl-rail {
+  width: 44rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+.tl-dot {
+  width: 22rpx;
+  height: 22rpx;
+  border-radius: 50%;
+  margin-top: 8rpx;
+  flex-shrink: 0;
+  background: #1b3a5c;
+}
+.tl-line {
+  width: 4rpx;
+  flex: 1;
+  margin: 6rpx 0;
+  border-left: 4rpx dashed #c4c9d2;
+}
+.tl-content {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 36rpx;
+}
+.tl-name-row {
+  display: flex;
+  align-items: center;
+}
+.tl-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+.tl-tag {
+  margin-left: 14rpx;
+  font-size: 20rpx;
+  color: #6b7280;
+  background: #eef0f3;
+  border-radius: 999rpx;
+  padding: 2rpx 14rpx;
+}
+.tl-meta {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #9ca3af;
+}

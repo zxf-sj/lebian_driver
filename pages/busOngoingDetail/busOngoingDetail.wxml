@@ -1,0 +1,201 @@
+<!--pages/busOngoingDetail/busOngoingDetail.wxml  第二套·进行中班次详情-->
+<view class="page">
+  <view class="body">
+    <!-- 班次概览卡（滚动吸顶） -->
+    <view class="summary-sticky">
+    <view class="summary-card">
+      <view class="summary-head">
+        <view class="summary-left">
+          <view class="summary-route">
+            <text class="summary-from">{{info.from}}</text>
+            <text class="summary-arrow">→</text>
+            <text class="summary-to">{{info.to}}</text>
+          </view>
+          <view class="summary-meta">{{info.departFull}} · {{info.plate}} · {{info.seatsTotal}} 座</view>
+          <view class="summary-meta">本站发车 {{info.thisDepart}}</view>
+          <view class="summary-meta">下一站 {{info.nextStop}} · {{info.etaText}}</view>
+        </view>
+        <view class="summary-right">
+          <view class="summary-status">{{info.statusName}}</view>
+          <view class="summary-stop">第 {{info.stopIdx}}/{{info.stopTotal}} 站</view>
+          <view class="summary-open">{{info.currentStop}}</view>
+        </view>
+      </view>
+      <view class="summary-divider"></view>
+      <view class="summary-stats">
+        <view class="stat-col">
+          <view class="stat-num">{{info.boarded}}</view>
+          <view class="stat-label">已上车</view>
+        </view>
+        <view class="stat-col">
+          <view class="stat-num">{{info.booked}}</view>
+          <view class="stat-label">预约</view>
+        </view>
+        <view class="stat-col">
+          <view class="stat-num orange">{{info.empty}}</view>
+          <view class="stat-label">空位</view>
+        </view>
+      </view>
+    </view>
+    </view>
+
+    <!-- 站点订单列表（订单维度） -->
+    <view class="pax-card">
+      <view class="pax-head">
+        <text class="pax-title">{{siteName || '当前站'}}</text>
+        <text class="pax-sub">{{orders.length}} 单 · 未上车 {{pendingCount}} 人</text>
+      </view>
+
+      <!-- 状态筛选：未上车 / 已上车 -->
+      <scroll-view class="pax-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+        <view
+          class="pax-tab {{orderTab === item.key ? 'on' : ''}}"
+          wx:for="{{orderTabs}}" wx:key="key"
+          data-key="{{item.key}}" bindtap="onOrderTabTap"
+        >{{item.name}}<text class="pax-tab-num"> {{item.count}}</text></view>
+      </scroll-view>
+
+      <!-- 订单列表：固定约 3 行高，上下滑动 -->
+      <scroll-view class="pax-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+        <view class="order-item {{item.Status === 'boarded' ? 'is-boarded' : ''}}" wx:for="{{orderShow}}" wx:key="Key">
+          <!-- 标题行：单人显示乘客信息，多人显示订单信息（点击展开乘客明细） -->
+          <view class="order-head" data-index="{{index}}" bindtap="togglePax">
+            <view class="order-title-wrap">
+              <text class="order-title">{{item.Title}}</text>
+              <text class="order-sub">{{item.IsMulti ? '多人订单' : '单人订单'}} · 上车 {{item.BoardNum}}/{{item.PersonNum}} 人<text wx:if="{{item.SiteName}}"> · {{item.SiteName}}</text></text>
+            </view>
+            <text class="order-status {{item.Status === 'boarded' ? 'order-status-ok' : 'order-status-no'}}">{{item.StatusName}}</text>
+          </view>
+
+          <view class="order-meta">
+            <text class="order-phone">{{item.Contact}} {{item.Phone}}</text>
+            <text class="order-sub" wx:if="{{item.IsMulti}}">点击标题展开 {{item.PaxList.length}} 位乘客明细</text>
+          </view>
+
+          <!-- 多人订单乘客明细 -->
+          <view class="order-pax-list" wx:if="{{item.IsMulti && item.Expanded}}">
+            <view class="order-pax-row" wx:for="{{item.PaxList}}" wx:for-item="pax" wx:key="index">
+              <text class="order-pax-name">{{pax.Name}}</text>
+              <text class="order-pax-phone">{{pax.Phone}}</text>
+              <text class="order-pax-state {{pax.Status === 'boarded' ? 'boarded' : ''}}">{{pax.StatusName}}</text>
+            </view>
+          </view>
+
+          <!-- 未上车：打电话 / 确认上车 / 未上车；已上车：只保留打电话 -->
+          <view class="order-actions">
+            <view class="order-btn" catchtap="onOrderCall" data-phone="{{item.Phone}}">打电话</view>
+            <block wx:if="{{item.Status !== 'boarded'}}">
+              <view class="order-btn order-btn-ok" catchtap="onConfirmBoard" data-index="{{index}}">确认上车</view>
+              <view class="order-btn order-btn-plain" catchtap="onOrderAbsent" data-index="{{index}}">未上车</view>
+            </block>
+          </view>
+        </view>
+        <view class="pax-empty" wx:if="{{orderShow.length === 0 && !loading}}">{{orderTab === 'boarded' ? '暂无已上车订单' : '暂无未上车订单'}}</view>
+      </scroll-view>
+    </view>
+
+    <!-- 站点时间轴：点击站名查看该站订单 -->
+    <view class="timeline-card">
+      <view class="tl-item {{item.State}}" wx:for="{{sites}}" wx:key="Key"
+            data-index="{{index}}" bindtap="onSiteTap">
+        <view class="tl-rail">
+          <view class="tl-dot"></view>
+          <view class="tl-line" wx:if="{{index < sites.length - 1}}"></view>
+        </view>
+        <view class="tl-content {{item.State === 'current' ? 'tl-current-box' : ''}} {{item.SiteId === SiteId ? 'tl-selected-box' : ''}}">
+          <view class="tl-name-row">
+            <text class="tl-name">{{item.SiteName}}</text>
+            <text class="tl-tag tl-tag-start" wx:if="{{item.IsStart}}">起点</text>
+            <text class="tl-tag tl-tag-current" wx:if="{{item.State === 'current'}}">当前站</text>
+            <text class="tl-tag tl-tag-view" wx:if="{{item.SiteId === SiteId && item.State !== 'current'}}">查看中</text>
+          </view>
+          <view class="tl-meta">{{item.Time}} · {{item.Meta}}</view>
+        </view>
+      </view>
+      <view class="tl-empty" wx:if="{{sites.length === 0 && !loading}}">暂无站点数据</view>
+
+      <view class="tl-footer" wx:if="{{nextSite}}">下一站 {{nextSite.SiteName}} · 预约 {{nextSite.ReservationNum}} 人 · 上车 {{nextSite.PersonNum}} 人</view>
+      <button class="tl-confirm" bindtap="confirmArrive">{{nextSite ? '确认到达 ' + nextSite.SiteName : '已到终点站'}}</button>
+    </view>
+  </view>
+
+  <!-- 确认到站弹框 -->
+  <view class="modal-mask" wx:if="{{showArriveModal}}" catchtouchmove="noop">
+    <view class="modal">
+      <view class="modal-head">
+        <text class="modal-title">确认到站</text>
+        <view class="modal-close" bindtap="closeArriveModal">✕</view>
+      </view>
+
+      <view class="modal-info">
+        <view class="modal-info-row">
+          <text class="mi-label">当前站</text>
+          <text class="mi-value">{{info.currentStop}}</text>
+          <text class="mi-plan">计划 {{info.thisDepart}}</text>
+        </view>
+        <view class="modal-info-row">
+          <text class="mi-label">到达站</text>
+          <text class="mi-value">{{nextSite.SiteName}}</text>
+          <text class="mi-plan" wx:if="{{nextSite.Time}}">预计 {{nextSite.Time}} 到</text>
+        </view>
+      </view>
+
+      <view class="modal-field-label">实际到达时间（可校准）</view>
+      <!-- mode=time 原生只提供 时:分 两列 -->
+      <picker mode="time" value="{{arriveTime}}" bindchange="onArriveTimeChange">
+        <view class="modal-time-box">
+          <text class="modal-time">{{arriveTime}}</text>
+          <text class="modal-time-icon">🕐</text>
+        </view>
+      </picker>
+      <view class="modal-note">确认后按实际到达时间校准后续各站计划时刻，并自动推算下一站时间。</view>
+
+      <view class="modal-btns">
+        <button class="modal-btn-plain" bindtap="closeArriveModal">再等等</button>
+        <button class="modal-btn-primary" bindtap="submitArrive">确认到站</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 确认上车弹框：全部上车 / 部分上车 -->
+  <view class="modal-mask" wx:if="{{showConfirmModal}}" catchtouchmove="noop">
+    <view class="modal">
+      <view class="modal-head">
+        <text class="modal-title">确认上车</text>
+        <view class="modal-close" bindtap="closeConfirmModal">✕</view>
+      </view>
+
+      <view class="modal-info">
+        <view class="modal-info-row">
+          <text class="mi-label">订单</text>
+          <text class="mi-value">{{confirmOrder.Title}}</text>
+          <text class="mi-plan">{{confirmOrder.Contact}}</text>
+        </view>
+        <view class="modal-info-row">
+          <text class="mi-label">预约</text>
+          <text class="mi-value">{{confirmOrder.PersonNum}} 人</text>
+          <text class="mi-plan">已上车 {{confirmOrder.BoardNum}} 人</text>
+        </view>
+      </view>
+
+      <view class="confirm-mode-title">上车情况</view>
+      <view class="confirm-mode-group">
+        <view class="confirm-mode-btn {{confirmMode === 'all' ? 'on' : ''}}"
+              data-mode="all" bindtap="onConfirmModeTap">全部上车</view>
+        <view class="confirm-mode-btn {{confirmMode === 'part' ? 'on' : ''}}"
+              data-mode="part" bindtap="onConfirmModeTap">部分上车</view>
+      </view>
+
+      <view class="confirm-num-box" wx:if="{{confirmMode === 'part'}}">
+        <text class="confirm-num-label">上车人数</text>
+        <input class="confirm-num-input" type="number" value="{{confirmNum}}"
+               bindinput="onConfirmNumInput" placeholder="请输入" placeholder-class="confirm-num-ph" />
+      </view>
+
+      <view class="modal-btns">
+        <button class="modal-btn-plain" bindtap="closeConfirmModal">取消</button>
+        <button class="modal-btn-primary" bindtap="submitConfirm">确认</button>
+      </view>
+    </view>
+  </view>
+</view>

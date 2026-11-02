@@ -1,0 +1,82 @@
+<!--pages/busIndex/busIndex.wxml  第二套·排班-->
+<view class="page">
+  <!-- 固定区域：滚动时不动 -->
+  <view class="fixed-area">
+    <!-- 顶部深蓝头图 -->
+    <view class="hero">
+      <view class="hero-title">班车司机助手</view>
+      <view class="hero-sub">今日 {{isShow?topData.TodayShiftCount:0}} 个班次 · {{isShow?topData.DepartureTime:''}}</view>
+    </view>
+    <!-- 进行中的班车卡片 -->
+    <view class="ongoing" wx:if="{{isShow}}" data-item="{{topData}}" bind:tap="goExecute">
+      <view class="ongoing-head">
+        <view class="ongoing-dot-wrap">
+          <view class="ongoing-dot"></view>
+          <text class="ongoing-label">正在进行的班车</text>
+        </view>
+        <view class="ongoing-badge">已发车</view>
+      </view>
+      <view class="ongoing-route">
+        <text class="ongoing-from">{{ongoing.from}}</text>
+        <text class="ongoing-arrow">→</text>
+        <text class="ongoing-to">{{ongoing.to}}</text>
+        <text class="ongoing-plate">{{topData.VehicleId_Name}}</text>
+      </view>
+      <view class="ongoing-info">
+        <view class="ongoing-col">
+          <text class="ongoing-col-label">当前站</text>
+          <text class="ongoing-col-value">{{topData.SiteId_Name}}</text>
+        </view>
+        <view class="ongoing-col">
+          <text class="ongoing-col-label">下一站</text>
+          <text class="ongoing-col-value">{{topData.NextSiteId_Name}}</text>
+        </view>
+        <view class="ongoing-col">
+          <text class="ongoing-col-label">预计到达</text>
+          <text class="ongoing-col-value eta">{{topData.ArriveTime}}</text>
+        </view>
+        <view class="ongoing-go" >去执行 ›</view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 班次列表：仅此处滚动，触底上拉加载 -->
+  <scroll-view class="trip-scroll" scroll-y enhanced show-scrollbar="{{false}}"
+               bindscrolltolower="onScrollToLower" lower-threshold="80">
+    <view class="trip-list">
+      <!-- 点卡片空白处看详情；右侧按钮 catchtap 阻断冒泡，避免两个动作同时触发 -->
+      <view class="trip-card" wx:for="{{showList}}" wx:key="id" data-item="{{item}}" bindtap="goDetail">
+        <view class="trip-left">
+          <!-- IsStart：0 待发车=橙 / 1 已发车=绿 / 2 已完成=深蓝 -->
+          <view class="trip-status {{item.IsWaiting ? 'status-waiting' : item.IsStart == '1' ? 'status-done' : 'status-departed'}}">{{item.IsStart_Name}}</view>
+          <view class="trip-time">{{item.Time}}</view>
+        </view>
+        <view class="trip-mid">
+          <view class="trip-route">{{item.StatingLocation_Name}} → {{item.EndLocation_Name}}</view>
+          <!-- {{item.dir}} -->
+          <view class="trip-meta">{{item.ScheduleDate}} ·  预约 {{item.SeatSold}} · 已上车 {{item.PersonNum}} · 空位 {{item.EmptySeat}}</view>
+        </view>
+        <!-- 操作按钮固定在最右，垂直居中 -->
+        <view class="trip-right">
+          <!-- 待发车：确认后调发车接口 -->
+          <view class="trip-btn btn-start" wx:if="{{item.IsWaiting}}"
+                data-item="{{item}}" catchtap="startBus">发车</view>
+          <!-- 已发车：进入执行页 -->
+          <view class="trip-btn btn-execute" wx:elif="{{item.IsStart == '1'}}"
+                data-item="{{item}}" catchtap="goExecute">去执行<text class="trip-btn-arrow">›</text></view>
+          <!-- 已完成：看详情 -->
+          <view class="trip-btn btn-detail" wx:else
+                data-item="{{item}}" catchtap="goDetail">详情</view>
+        </view>
+      </view>
+      <view class="empty" wx:if="{{showList.length === 0 && !loading}}">暂无班次</view>
+
+      <!-- 上拉加载状态 -->
+      <view class="load-tip" wx:if="{{loading}}">加载中…</view>
+      <view class="load-tip" wx:elif="{{noMore && showList.length > 0}}">没有更多了</view>
+    </view>
+  </scroll-view>
+
+  <tab-bar mode="bus" active-index="{{0}}" />
+</view>

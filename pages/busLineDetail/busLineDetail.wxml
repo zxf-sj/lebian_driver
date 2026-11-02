@@ -1,0 +1,54 @@
+<!--pages/busLineDetail/busLineDetail.wxml  第二套·历史班次详情（无顶部栏，已完成徽章在共N站下方）-->
+<view class="page">
+  <view class="body">
+    <!-- 班次概览卡 -->
+    <view class="summary-card">
+      <view class="summary-head">
+        <view class="summary-route">
+          <text class="summary-from">{{info.from}}</text>
+          <text class="summary-arrow">→</text>
+          <text class="summary-to">{{info.to}}</text>
+        </view>
+        <view class="summary-right">
+          <view class="summary-stop">共 {{info.stopTotal}} 站</view>
+          <view class="summary-status">{{info.statusName}}</view>
+        </view>
+      </view>
+      <view class="summary-meta">{{info.departFull}} · {{info.plate}} · {{info.seatsTotal}} 座</view>
+      <view class="summary-meta">本站发车 {{info.thisDepart}}</view>
+      <view class="summary-meta">实际到达 {{info.thisArrive}}</view>
+      <view class="summary-divider"></view>
+      <view class="summary-stats">
+        <view class="stat-col">
+          <view class="stat-num">{{info.boarded}}</view>
+          <view class="stat-label">已上车</view>
+        </view>
+        <view class="stat-col">
+          <view class="stat-num">{{info.booked}}</view>
+          <view class="stat-label">预约</view>
+        </view>
+        <view class="stat-col">
+          <view class="stat-num orange">{{info.empty}}</view>
+          <view class="stat-label">空位</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 站点时间轴 -->
+    <view class="timeline-card">
+      <view class="tl-item" wx:for="{{stops}}" wx:key="name">
+        <view class="tl-rail">
+          <view class="tl-dot"></view>
+          <view class="tl-line" wx:if="{{index < stops.length - 1}}"></view>
+        </view>
+        <view class="tl-content">
+          <view class="tl-name-row">
+            <text class="tl-name">{{item.name}}</text>
+            <text class="tl-tag" wx:if="{{item.isStart}}">起点</text>
+          </view>
+          <view class="tl-meta">{{item.time}} · 到站 {{item.arrive}} · 已上车 {{item.boarded}}/{{item.booked}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

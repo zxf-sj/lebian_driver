@@ -1,6 +1,7 @@
 import http from '../../utils/http';
 const BASE_URL = require("../../utils/BASE_URL");
 var baseUrl = BASE_URL.BASE_URL //配置基础url
+const driverType = require('../../utils/driverType.js');
 Page({
 
   /**
@@ -34,6 +35,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    if (driverType.blockBusDriver()) return; // 班车司机禁止进入第一套
     var userInfo = wx.getStorageSync('userInfo');
     if(!userInfo){
       wx.navigateTo({
@@ -53,6 +55,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    if (driverType.blockBusDriver()) return; // 班车司机禁止进入第一套
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 2
