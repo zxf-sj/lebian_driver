@@ -339,6 +339,15 @@ page {
   color: #fff;
   background: #ff8a4c;
 }
+/* 当前站停留倒计时（右侧） */
+.tl-stay {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #ff8a4c;
+  font-variant-numeric: tabular-nums;
+}
 .tl-meta {
   margin-top: 8rpx;
   font-size: 24rpx;

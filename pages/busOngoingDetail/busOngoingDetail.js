@@ -58,6 +58,14 @@ function numOrRaw(v) {
   return (v !== '' && v !== undefined && v !== null && !isNaN(n)) ? n : v;
 }
 
+// 秒 → 停留倒计时文本（300 → 5:00，59 → 0:59）
+function fmtStay(totalSec) {
+  totalSec = Math.max(0, Math.floor(totalSec));
+  var m = Math.floor(totalSec / 60);
+  var s = totalSec % 60;
+  return m + ':' + pad2(s);
+}
+
 // 14:50 / 2026-10-29 14:50:00 → 14:50
 function fmtTime(v) {
   var s = String(v || '').trim();
@@ -186,6 +194,7 @@ function parseShift(data) {
       Time: fmtTime(pick(s, ['ArrivalTime', 'Time', 'DepartureTime', 'PlanTime'])),
       ReservationNum: reservationNum,   // 预约人数
       PersonNum: personNum,             // 上车人数
+      StayMinute: toNum(pick(s, ['StayMinute', 'StayMin', 'StayMinuteNum']), 0), // 停留分钟数
       IsStart: toBool(pick(s, ['IsStart', 'IsStartSite'])),
       State: 'todo',
       Meta: '预约 ' + reservationNum + ' 人 · 上车 ' + personNum + ' 人'
@@ -299,6 +308,10 @@ Page({
     pendingCount: 0,   // 当前站未上车人数
     loading: false,
 
+    // 当前站停留倒计时
+    staySiteId: '',    // 正在倒计时的站点 Id
+    stayText: '',      // 倒计时文本（如 5:00）
+
     // 确认上车弹框
     showConfirmModal: false,
     confirmOrder: null,
@@ -317,6 +330,42 @@ Page({
     this.loadShiftSites();
   },
 
+  onUnload() {
+    this.clearStayCountdown();
+  },
+
+  /* ===== 当前站停留倒计时：StayMinute 分钟，按秒递减到 0:00 ===== */
+  syncStayCountdown(curSite) {
+    var siteId = curSite ? String(curSite.SiteId) : '';
+    var stay = curSite ? toNum(curSite.StayMinute, 0) : 0;
+    // 同一站且倒计时进行中：不重置（避免刷新数据把倒计时打回满值）
+    if (siteId && this.data.staySiteId === siteId && this._stayTimer) return;
+    this.clearStayCountdown();
+    if (!siteId || stay <= 0) return;
+    var _this = this;
+    var left = Math.floor(stay * 60);
+    this._stayTimer = setInterval(function () {
+      left--;
+      if (left <= 0) {
+        clearInterval(_this._stayTimer);
+        _this._stayTimer = null;
+        _this.setData({ stayText: '0:00' });
+        return;
+      }
+      _this.setData({ stayText: fmtStay(left) });
+    }, 1000);
+    this.setData({ staySiteId: siteId, stayText: fmtStay(left) });
+  },
+
+  // 清除倒计时：进入其他站 / 离开页面时调用
+  clearStayCountdown() {
+    if (this._stayTimer) {
+      clearInterval(this._stayTimer);
+      this._stayTimer = null;
+    }
+    this.setData({ staySiteId: '', stayText: '' });
+  },
+
   /* ===== 班线默认站点人数：进入页面默认显示当前站订单 ===== */
   loadShiftSites() {
     var _this = this;
@@ -331,6 +380,8 @@ Page({
       console.log('[GetBusLineShiftOrderInfo]', data);
       var res = parseShift(data);
       var info = parseShiftInfo(data, res.sites, res.curSite, res.nextSite);
+      // 停留倒计时：进入其他站时旧倒计时自动清除；新当前站有 StayMinute 才开始
+      _this.syncStayCountdown(res.curSite);
       var patch = {
         sites: res.sites,
         nextSite: res.nextSite,

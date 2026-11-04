@@ -108,6 +108,7 @@
             <text class="tl-tag tl-tag-start" wx:if="{{item.IsStart}}">起点</text>
             <text class="tl-tag tl-tag-current" wx:if="{{item.State === 'current'}}">当前站</text>
             <text class="tl-tag tl-tag-view" wx:if="{{item.SiteId === SiteId && item.State !== 'current'}}">查看中</text>
+            <text class="tl-stay" wx:if="{{item.State === 'current' && item.SiteId === staySiteId && stayText}}">停留 {{stayText}}</text>
           </view>
           <view class="tl-meta">{{item.Time}} · {{item.Meta}}</view>
         </view>

@@ -53,15 +53,15 @@ function request(url, params, method, header, onSuccess, onFailed) {
       }
     },
     fail(error) {
+      var errMsg = (error && error.errMsg) ? error.errMsg : '网络请求失败';
       wx.showToast({
-        title: error,
-        duration:3000,
+        title: errMsg,
+        duration: 3000,
         icon: 'none',
         success() {
           hasToast = true;
           setTimeout(function () {
-            console.log(err)
-            onFailed(error);
+            onFailed({ msg: errMsg, errMsg: errMsg, error: error });
           }, 500)
         }
       })

@@ -122,9 +122,9 @@ Page({
       }
     }, err => {
       wx.showToast({
-        title: err.msg,
-        icon: 'success',
-        duration: 2000,
+        title: err.msg || err.errMsg || '登录请求失败，请检查网络',
+        icon: 'none',
+        duration: 3000,
       })
     })
   }
