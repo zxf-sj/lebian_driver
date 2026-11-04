@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "历史行程",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 80,
   "usingComponents": {
     "tab-bar": "/custom-tab-bar/index"
   }

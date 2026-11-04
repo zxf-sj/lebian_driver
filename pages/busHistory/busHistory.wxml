@@ -3,7 +3,7 @@
   <view class="title">历史行程</view>
   <view class="subtitle">已完成与已取消班次台账</view>
 
-  <!-- 统计条 -->
+  <!-- 统计条（近 7 天，按已加载数据统计） -->
   <view class="stats">
     <view class="stat-item">
       <view class="stat-value">{{summary.trips7d}}</view>
@@ -26,16 +26,21 @@
       <view class="trip-time">{{item.time}}</view>
       <view class="trip-mid">
         <view class="trip-route">{{item.from}} → {{item.to}}</view>
-        <view class="trip-meta">{{item.dateLabel}} · {{item.dir}} 载客 {{item.boarded}}/{{item.seatsTotal}} · 空位 {{item.empty}}</view>
+        <view class="trip-meta">{{item.dateLabel}} · {{item.dir}}<text wx:if="{{item.plate}}"> · {{item.plate}}</text></view>
+        <view class="trip-meta">载客 {{item.boarded}}/{{item.seatsTotal}} · 空位 {{item.empty}}</view>
       </view>
       <view class="trip-right">
-        <view class="trip-status">{{item.statusText}}</view>
+        <view class="trip-status {{item.statusCls}}">{{item.statusText}}</view>
         <text class="trip-arrow">›</text>
       </view>
     </view>
   </block>
 
-  <view class="empty" wx:if="{{groups.length === 0}}">暂无历史班次</view>
+  <!-- 列表状态 -->
+  <view class="list-tip" wx:if="{{loading}}">加载中…</view>
+  <view class="list-tip" wx:elif="{{groups.length && !noMore}}">上拉加载更多</view>
+  <view class="list-tip" wx:elif="{{groups.length}}">没有更多了</view>
+  <view class="empty" wx:if="{{!loading && firstLoaded && groups.length === 0}}">暂无历史班次</view>
 
   <tab-bar mode="bus" active-index="{{1}}" />
 </view>

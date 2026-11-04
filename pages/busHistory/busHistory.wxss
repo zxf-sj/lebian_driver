@@ -88,6 +88,10 @@ page {
   border-radius: 999rpx;
   padding: 6rpx 18rpx;
 }
+.trip-status.done { background: #2ba84a; }
+.trip-status.doing { background: #2b7fe0; }
+.trip-status.wait { background: #f0a020; }
+.trip-status.cancel { background: #9aa3ad; }
 .trip-arrow {
   margin-top: 10rpx;
   color: #c4c9d2;
@@ -98,4 +102,12 @@ page {
   color: #9ca3af;
   font-size: 26rpx;
   padding: 80rpx 0;
+}
+
+/* 上拉加载 / 到底提示 */
+.list-tip {
+  text-align: center;
+  color: #a8b0ba;
+  font-size: 24rpx;
+  padding: 24rpx 0 40rpx;
 }
